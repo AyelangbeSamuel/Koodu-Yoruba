@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kóòdù Yoruba — Learn Hardware Programming in Yoruba</title>
+  <meta name="description" content="Kóòdù Yoruba — Learn Arduino & hardware in Yoruba. Download libraries, sample code, watch tutorials and buy kits."/>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Add favicon if you have one -->
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img id="logo" src="assets/images/koodu-yoruba.jpg" alt="Kóòdù Yoruba logo" />
+        <div>
+          <h1 id="site-title">Kóòdù Yoruba</h1>
+          <p id="site-subtitle">Learn hardware programming in Yoruba</p>
+        </div>
+      </div>
+
+      <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <a href="#videos" id="nav-videos">Videos</a>
+        <a href="#library" id="nav-library">Library</a>
+        <a href="#store" id="nav-store">Store</a>
+        <a href="#components" id="nav-components">Components</a>
+        <a href="#community" id="nav-community">Community</a>
+        <a href="#support" id="nav-support">Support</a>
+        <a href="#support" id="nav-support">Projects</a>
+        <a href="#support" id="nav-support">Tutorials</a>
+        <a href="#support" id="nav-support">Tools</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="toggle-dark" aria-label="Toggle dark mode">🌙</button>
+        <button id="toggle-lang" aria-label="Toggle language">EN/YR</button>
+      </div>
+    </div>
+
+    <div class="hero grassy">
+      <div class="hero-inner">
+        <h2 id="hero-title">Kóòdù Yoruba</h2>
+        <p id="hero-sub">Programming Arduino and hardware — in Yoruba.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#videos" id="cta-watch">Watch Tutorials</a>
+          <a class="btn outline" href="#library" id="cta-download">Download Library</a>
+        </div>
+      </div>
+      <img class="hero-deco" src="assets/hero-circuit.svg" alt="" aria-hidden="true"/>
+    </div>
+  </header>
+
+  <main>
+    <!-- Videos -->
+    <section id="videos" class="section">
+      <div class="container">
+        <h3 id="videosTitle">Latest Tutorials</h3>
+        <p id="videosDesc">Shorts and full tutorials in Yoruba.</p>
+        <div class="grid videos-grid">
+          <!-- Embed youtube videos -->
+          <article class="card video-card">
+           <iframe
+         width="560"
+        height="315"
+        src="https://www.youtube.com/embed/v4zTAkLKgm4"
+     title="YouTube video player"
+     frameborder="0"
+     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+     allowfullscreen>
+</iframe>
+            <h4>Introduction to Arduino (Yoruba)</h4>
+          </article>
+
+          <article class="card video-card">
+            <iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/v4zTAkLKgm4"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen>
+</iframe>
+            <h4>Blink LED with AdeYorubaDuino.h</h4>
+          </article>
+
+          <!-- add more cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Library -->
+    <section id="library" class="section alt">
+      <div class="container">
+        <h3 id="libraryTitle">AdeYorubaDuino Library</h3>
+        <p id="libraryDesc">Download the Yoruba Arduino library and the dictionary (docx / pdf).</p>
+        <div class="grid">
+          <div class="card">
+            <h4>AdeYorubaDuino.zip</h4>
+            <p>Includes header, source, examples and docs.</p>
+            <a class="btn" href="downloads/AdeYorubaDuino.zip" download>Download Library</a>
+          </div>
+          <div class="card">
+            <h4>Dictionary (Word)</h4>
+            <p>Yoruba → English mapping of keywords & APIs.</p>
+            <a class="btn outline" href="docs/AdeYorubaDuino_Dictionary.docx" download>Download DOCX</a>
+            <a class="btn outline" href="docs/AdeYorubaDuino_Dictionary.pdf" download>Download PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Store -->
+    <section id="store" class="section">
+      <div class="container">
+        <h3>Store — Support the Channel</h3>
+        <p>Buy starter kits, sensors and more. Links go to your payment or shop pages.</p>
+        <div class="grid product-grid">
+          <article class="product-card">
+            <img src="assets/arduino-uno.jpg" alt="Arduino Uno" />
+            <h4>Arduino Uno Kit</h4>
+            <p>Starter kit with breadboard, LEDs, sensors.</p>
+            <div class="product-actions">
+              <!-- replace href with your payment link -->
+              <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy — ₦12,000</a>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="assets/dht11.jpg" alt="DHT11 Sensor" />
+            <h4>DHT11 Temperature Sensor</h4>
+            <p>Temperature & humidity sensor.</p>
+            <div class="product-actions">
+              <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy — ₦1,500</a>
+            </div>
+          </article>
+
+          <!-- more products -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Components / Parts -->
+    <section id="components" class="section alt">
+      <div class="container">
+        <h3>Components</h3>
+        <p>Suggested components and bundles for learners.</p>
+        <ul class="component-list">
+          <li>Arduino Uno / Nano</li>
+          <li>Breadboard & Jumper Wires</li>
+          <li>Servo, Stepper, Ultrasonic, DHT11</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Community -->
+    <section id="community" class="section">
+      <div class="container">
+        <h3>Community</h3>
+        <p>Join the Telegram, Discord, or GitHub to share projects and ask questions.</p>
+        div class="grid">
+          <div class="card">
+            <h4>Telegram</h4>
+            <a class="btn outline" href="https://t.me/yourgroup" target="_blank">Join</a>
+          </div>
+          <div class="card">
+            <h4>Discord</h4>
+            <a class="btn outline" href="https://discord.gg/yourserver" target="_blank">Join</a>
+          </div>
+          <div class="card">
+            <h4>GitHub</h4>
+            <a class="btn outline" href="https://github.com/yourusername" target="_blank">Visit</a>
+          </div>
+           <div class="card">
+            <h4>Facebook</h4>
+            <a class="btn outline" href="https://www.facebook.com/profile.php?id=61581761048106" target="_blank">Visit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscribe / Contact -->
+    <section id="support" class="section">
+      <div class="container">
+        <h3>Support & Contact</h3>
+        <p id="supportDesc">Send a message, subscribe, or sponsor the channel.</p>
+
+        <div class="subscribe-grid">
+          <div class="card subscribe-card">
+            <h4>Subscribe</h4>
+            <p>Get updates, code and discounts.</p>
+            <form id="subscribeForm" action="https://formspree.io/f/yourformid" method="POST">
+              <input type="email" name="email" id="subscriberEmail" placeholder="Your email" required />
+              <input type="hidden" name="_subject" value="New subscriber from website" />
+              <button class="btn" type="submit">Subscribe</button>
+            </form>
+            <small>Or click to subscribe on YouTube:</small>
+            <div style="margin-top:.5rem">
+              <!-- opens your channel subscribe page -->
+              <a class="btn outline" id="yt-subscribe" href="https://www.youtube.com/channel/UC_YOURCHANNEL?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
+            </div>
+          </div>
+
+         <section class="section" id="contact">
+  <h3>📩 Contact Us</h3>
+  <form class="contact-box">
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Enter your name" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email" required />
+
+    <label for="message">Message</label>
+    <textarea id="message" placeholder="Write your message..." required></textarea>
+
+    <button class="btn">Send Message</button>
+  </form>
+</section>        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Kóòdù Yoruba — Built by Ayelangbe Adeyinka</p>
+      <p><small>Made with ❤️ and Yoruba pride</small></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
