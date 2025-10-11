@@ -1,4 +1,6 @@
-// basic interactions: dark mode + language + subscribe form friendly UX
+// basic interactions: dark mode + language + subscribe/contact form UX
+
+// 1. SELECTORS
 const toggles = {
   darkBtn: document.getElementById('toggle-dark'),
   langBtn: document.getElementById('toggle-lang'),
@@ -14,76 +16,124 @@ const toggles = {
   ctaWatch: document.getElementById('cta-watch'),
   ctaDownload: document.getElementById('cta-download')
 };
-let dark = false;
-let yoruba = false;
 
+// 2. STATE MANAGEMENT (Loaded from Local Storage)
+// Initial dark mode state: check local storage or default to false
+let dark = localStorage.getItem('darkMode') === 'true';
+// Initial language state: check local storage or default to false (English)
+let yoruba = localStorage.getItem('yorubaLang') === 'true';
+
+// 3. INITIAL SETUP
+// Apply saved dark mode state immediately on load
+function applyDarkMode() {
+    document.body.classList.toggle('dark', dark);
+    if (toggles.darkBtn) {
+        toggles.darkBtn.textContent = dark ? '☀️' : '🌙';
+    }
+}
+// Apply saved language state immediately on load
+function applyLanguage() {
+    if (yoruba) {
+        // Yoruba translations
+        toggles.siteTitle.textContent = 'Kóòdù Yoruba';
+        toggles.siteSubtitle.textContent = 'Kọ́ ẹ̀kọ́ ìṣàkóso hardware ní èdè Yorùbá';
+        toggles.heroTitle.textContent = 'Kóòdù Yoruba';
+        toggles.heroSub.textContent = 'Kọ́ Arduino àti hardware ní Yorùbá';
+        toggles.videosTitle.textContent = 'Àwọn Ẹ̀kọ́ Tó Ṣẹ́yìn Jùlọ';
+        toggles.videosDesc.textContent = 'Àwọn movies kékèké àti ẹkọ́ pípẹ́ ní èdè Yorùbá';
+        toggles.libraryTitle.textContent = 'AdeYorubaDuino Láilìbrárì';
+        toggles.libraryDesc.textContent = 'Gba ilẹ̀kùn Yorùbá Arduino';
+        toggles.supportDesc.textContent = 'Ránṣẹ́ tàbí ṣe àtìlẹ́yìn fún ikanni';
+        toggles.ctaWatch.textContent = 'Wo Ẹ̀kọ́';
+        toggles.ctaDownload.textContent = 'Gba Láilìbrárì';
+    } else {
+        // English translations (corrected for consistency)
+        toggles.siteTitle.textContent = 'Kóòdù Yoruba';
+        toggles.siteSubtitle.textContent = 'Learn hardware programming in Yoruba';
+        toggles.heroTitle.textContent = 'Kóòdù Yoruba';
+        // Removed extra period
+        toggles.heroSub.textContent = 'Programming Arduino and hardware in Yoruba.';
+        toggles.videosTitle.textContent = 'Latest Tutorials';
+        toggles.videosDesc.textContent = 'Shorts and full tutorials in Yoruba.';
+        toggles.libraryTitle.textContent = 'AdeYorubaDuino Library';
+        // Corrected description
+        toggles.libraryDesc.textContent = 'Download the Yoruba Arduino library and the dictionary (docx / pdf).';
+        toggles.supportDesc.textContent = 'Send a message, subscribe, or sponsor the channel.';
+        toggles.ctaWatch.textContent = 'Watch Tutorials';
+        toggles.ctaDownload.textContent = 'Download Library';
+    }
+}
+
+applyDarkMode();
+// Only apply language if elements are found (to prevent errors)
+if (toggles.siteTitle) {
+    applyLanguage(); 
+}
+
+
+// 4. EVENT LISTENERS
+// Dark Mode Toggle
 if(toggles.darkBtn){
   toggles.darkBtn.addEventListener('click', () => {
     dark = !dark;
-    document.body.classList.toggle('dark', dark);
-    toggles.darkBtn.textContent = dark ? '☀️' : '🌙';
+    localStorage.setItem('darkMode', dark); // Save state
+    applyDarkMode();
   });
 }
+
+// Language Toggle
 if(toggles.langBtn){
   toggles.langBtn.addEventListener('click', () => {
     yoruba = !yoruba;
-    if(yoruba){
-      toggles.siteTitle.textContent = 'Kóòdù Yoruba';
-      toggles.siteSubtitle.textContent = 'Kọ́ ẹ̀kọ́ ìṣàkóso hardware ní èdè Yorùbá';
-      toggles.heroTitle.textContent = 'Kóòdù Yoruba';
-      toggles.heroSub.textContent = 'Kọ́ Arduino àti hardware ní Yorùbá';
-      toggles.videosTitle.textContent = 'Àwọn Ẹ̀kọ́ Tó Ṣẹ́yìn Jùlọ';
-      toggles.videosDesc.textContent = 'Àwọn movies kékèké àti ẹkọ́ pípẹ́ ní èdè Yorùbá';
-      toggles.libraryTitle.textContent = 'AdeYorubaDuino Láilìbrárì';
-      toggles.libraryDesc.textContent = 'Gba ilẹ̀kùn Yorùbá Arduino';
-      toggles.supportDesc.textContent = 'Ránṣẹ́ tàbí ṣe àtìlẹ́yìn fún ikanni';
-      toggles.ctaWatch.textContent = 'Wo Ẹ̀kọ́';
-      toggles.ctaDownload.textContent = 'Gba Láilìbrárì';
-    } else {
-      toggles.siteTitle.textContent = 'Kóòdù Yoruba';
-      toggles.siteSubtitle.textContent = 'Learn hardware programming in Yoruba';
-      toggles.heroTitle.textContent = 'Kóòdù Yoruba';
-      toggles.heroSub.textContent = 'Programming Arduino and hardware — in Yoruba.';
-      toggles.videosTitle.textContent = 'Latest Tutorials';
-      toggles.videosDesc.textContent = 'Shorts and full tutorials in Yoruba.';
-      toggles.libraryTitle.textContent = 'AdeYorubaDuino Library';
-      toggles.libraryDesc.textContent = 'Download the Yoruba Arduino library and docs';
-      toggles.supportDesc.textContent = 'Send a message or support the project';
-      toggles.ctaWatch.textContent = 'Watch Tutorials';
-      toggles.ctaDownload.textContent = 'Download Library';
+    localStorage.setItem('yorubaLang', yoruba); // Save state
+    applyLanguage();
+  });
+}
+
+
+// 5. FORM HANDLING UTILITY FUNCTION
+function handleFormSubmission(formElement) {
+    // If the form exists in the DOM
+    if (formElement) {
+        formElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = new FormData(formElement);
+            // Add a friendly feedback text based on the form context
+            const successMsg = formElement.id === 'subscribeForm' 
+                ? 'Thank you — A dupẹ́! You are subscribed.' 
+                : 'Message sent — Ẹ kú iṣẹ́! We will reply soon.';
+
+            fetch(formElement.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(res => {
+                if (res.ok) {
+                    alert(successMsg);
+                    formElement.reset();
+                } else {
+                    alert('Submission failed — please try again or email ayelangbeadeyinka@gmail.com');
+                }
+            }).catch(err => {
+                alert('Network error — try again later.');
+            });
+        });
     }
-  });
 }
 
-// Simple form success UX for Formspree
+// 6. FORM INITIALIZATION
 const subscribeForm = document.getElementById('subscribeForm');
-if(subscribeForm){
-  subscribeForm.addEventListener('submit', (e) => {
-    // formspree handles the network; give feedback
-    e.preventDefault();
-    const data = new FormData(subscribeForm);
-    fetch(subscribeForm.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    }).then(res => {
-      if(res.ok){
-        alert('Thank you — A dupẹ́! You are subscribed.');
-        subscribeForm.reset();
-      } else {
-        alert('Subscription failed — please try again or email ayelangbeadeyinka@gmail.com');
-      }
-    }).catch(err => {
-      alert('Network error — try again later.');
-    });
-  });
-}
+const contactForm = document.getElementById('contactForm'); // Added contact form
 
-// optional: smooth scrolling for anchors
+handleFormSubmission(subscribeForm);
+handleFormSubmission(contactForm); // Handle the contact form too!
+
+
+// 7. SMOOTH SCROLLING
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click', (e)=>{
     const href = a.getAttribute('href');
-    if(href.length>1){
+    if(href.length>1 && document.querySelector(href)){ // Check if target exists
       e.preventDefault();
       document.querySelector(href).scrollIntoView({behavior:'smooth'});
     }

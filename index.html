@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kóòdù Yoruba — Learn Hardware Programming in Yoruba</title>
+  <title>Kóòdù Yoruba  Learn Hardware Programming in Yoruba</title>
   <meta name="description" content="Kóòdù Yoruba — Learn Arduino & hardware in Yoruba. Download libraries, sample code, watch tutorials and buy kits."/>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Add favicon if you have one -->
+    <!-- Load Lucide Icons -->
+    <script type="module" src="https://unpkg.com/lucide@latest"></script>
+   
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <div class="brand">
-        <img id="logo" src="assets/images/koodu-yoruba.jpg" alt="Kóòdù Yoruba logo" />
+        <img id="logo" src="./assets/images/koodu-yoruba.jpg" alt="Kóòdù Yoruba logo" />
         <div>
           <h1 id="site-title">Kóòdù Yoruba</h1>
           <p id="site-subtitle">Learn hardware programming in Yoruba</p>
@@ -40,13 +42,13 @@
     <div class="hero grassy">
       <div class="hero-inner">
         <h2 id="hero-title">Kóòdù Yoruba</h2>
-        <p id="hero-sub">Programming Arduino and hardware — in Yoruba.</p>
+        <p id="hero-sub">Programming Arduino and hardware in Yoruba.</p>
         <div class="hero-cta">
           <a class="btn" href="#videos" id="cta-watch">Watch Tutorials</a>
           <a class="btn outline" href="#library" id="cta-download">Download Library</a>
         </div>
       </div>
-      <img class="hero-deco" src="assets/hero-circuit.svg" alt="" aria-hidden="true"/>
+      <img class="hero-deco" src="./assets/images/hero.jpeg" alt="" aria-hidden="true"/>
     </div>
   </header>
 
@@ -98,13 +100,13 @@
           <div class="card">
             <h4>AdeYorubaDuino.zip</h4>
             <p>Includes header, source, examples and docs.</p>
-            <a class="btn" href="downloads/AdeYorubaDuino.zip" download>Download Library</a>
+            <a class="btn" href="./downloads/AdeYorubaDuino.zip" download>Download Library</a>
           </div>
           <div class="card">
             <h4>Dictionary (Word)</h4>
             <p>Yoruba → English mapping of keywords & APIs.</p>
-            <a class="btn outline" href="docs/AdeYorubaDuino_Dictionary.docx" download>Download DOCX</a>
-            <a class="btn outline" href="docs/AdeYorubaDuino_Dictionary.pdf" download>Download PDF</a>
+            <a class="btn outline" href="./downloads/AdeYorubaDuino_Dictionary.docx" download>Download DOCX</a>
+            <a class="btn outline" href="./downloads/AdeYorubaDuino_Dictionary.pdf" download>Download PDF</a>
           </div>
         </div>
       </div>
@@ -113,25 +115,34 @@
     <!-- Store -->
     <section id="store" class="section">
       <div class="container">
-        <h3>Store — Support the Channel</h3>
+        <h3>Store Support the Channel</h3>
         <p>Buy starter kits, sensors and more. Links go to your payment or shop pages.</p>
         <div class="grid product-grid">
           <article class="product-card">
-            <img src="assets/arduino-uno.jpg" alt="Arduino Uno" />
+            <img src="./assets/images/uno.jpg" alt="Arduino Uno" />
             <h4>Arduino Uno Kit</h4>
             <p>Starter kit with breadboard, LEDs, sensors.</p>
             <div class="product-actions">
               <!-- replace href with your payment link -->
-              <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy — ₦12,000</a>
+              <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy ₦12,000</a>
             </div>
           </article>
 
           <article class="product-card">
-            <img src="assets/dht11.jpg" alt="DHT11 Sensor" />
+            <img src="./assets/images/dht.jpg" alt="DHT11 Sensor" />
             <h4>DHT11 Temperature Sensor</h4>
             <p>Temperature & humidity sensor.</p>
             <div class="product-actions">
-              <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy — ₦1,500</a>
+              <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy ₦1,500</a>
+            </div>
+          </article>
+
+           <article class="product-card">
+            <img src="./assets/images/bread.jpg" alt="Breadboard" />
+            <h4>Breadboard</h4>
+            <p>Breadboard</p>
+            <div class="product-actions">
+              <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy ₦1,500</a>
             </div>
           </article>
 
@@ -158,10 +169,10 @@
       <div class="container">
         <h3>Community</h3>
         <p>Join the Telegram, Discord, or GitHub to share projects and ask questions.</p>
-        div class="grid">
-          <div class="card">
+
+          <div class="card" class="grid">
             <h4>Telegram</h4>
-            <a class="btn outline" href="https://t.me/yourgroup" target="_blank">Join</a>
+            <a class="btn outline" href="https://t.me/kooduYoruba" target="_blank">Join</a>
           </div>
           <div class="card">
             <h4>Discord</h4>
@@ -190,14 +201,14 @@
             <h4>Subscribe</h4>
             <p>Get updates, code and discounts.</p>
             <form id="subscribeForm" action="https://formspree.io/f/yourformid" method="POST">
-              <input type="email" name="email" id="subscriberEmail" placeholder="Your email" required />
+              <input type="email" name="email" id="subscriberEmail" placeholder="yoruba@gmail.com" required />
               <input type="hidden" name="_subject" value="New subscriber from website" />
               <button class="btn" type="submit">Subscribe</button>
             </form>
             <small>Or click to subscribe on YouTube:</small>
             <div style="margin-top:.5rem">
               <!-- opens your channel subscribe page -->
-              <a class="btn outline" id="yt-subscribe" href="https://www.youtube.com/channel/UC_YOURCHANNEL?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
+              <a class="btn outline" id="yt-subscribe" href="https://www.youtube.com/channel/UC_Kóòdu Yoruba?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
             </div>
           </div>
 
@@ -205,10 +216,10 @@
   <h3>📩 Contact Us</h3>
   <form class="contact-box">
     <label for="name">Name</label>
-    <input type="text" id="name" placeholder="Enter your name" required />
+    <input type="text" id="name" placeholder="yinka@gmail.com" required />
 
     <label for="email">Email</label>
-    <input type="email" id="email" placeholder="Enter your email" required />
+    <input type="email" id="email" placeholder="yinka@gmail.com" required />
 
     <label for="message">Message</label>
     <textarea id="message" placeholder="Write your message..." required></textarea>
@@ -222,8 +233,25 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2025 Kóòdù Yoruba — Built by Ayelangbe Adeyinka</p>
+      <p>&copy; 2025 Kóòdù Yoruba  Built by Ayelangbe Adeyinka</p>
       <p><small>Made with ❤️ and Yoruba pride</small></p>
+       <div class="flex space-x-5 mt-4 md:mt-0">
+                        <!-- New GitHub Icon -->
+                        <a href="https://github.com/your-koodu-yoruba-repo" target="_blank" id="footer-github" class="text-4xl text-white hover:text-gray-400 transition-colors" title="Access the AdeYorubaDuino Source Code on GitHub">
+                            <i data-lucide="github"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@kooduyoruba" target="_blank" id="footer-youtube" class="text-4xl text-red-500 hover:text-red-600 transition-colors">
+                            <i data-lucide="youtube"></i>
+                        </a>
+                        <a href="#" target="_blank" id="footer-twitter" class="text-4xl text-blue-400 hover:text-blue-500 transition-colors">
+                            <i data-lucide="twitter"></i>
+                        </a>
+                        <a href="#" target="_blank" id="footer-instagram" class="text-4xl text-pink-400 hover:text-pink-500 transition-colors">
+                            <i data-lucide="instagram"></i>
+                        </a>
+                        <a href="#" target="_blank" id="footer-facebook" class="text-4xl text-blue-600 hover:text-blue-700 transition-colors">
+                            <i data-lucide="facebook"></i>
+                        </a>
     </div>
   </footer>
 
