@@ -1,837 +1,2214 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Kóòdù Yoruba — Learn Hardware Programming in Yoruba</title>
-  <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico.jpg">
   <meta name="description" content="Kóòdù Yoruba — Learn Arduino & hardware in Yoruba. Download libraries, sample code, watch tutorials and buy kits."/>
-  <!-- Lucide icons -->
-  <script type="module" src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- GSAP + ScrollTrigger (for high-quality animations) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-
-  <!-- tsParticles for particle layer -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.6.0/tsparticles.bundle.min.js" defer></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;700;900&family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
-    /* ==============
-       VARIABLES
-       ============== */
-    :root{
-      --bg-dark: #0b0b0e;
-      --glass: rgba(255,255,255,0.06);
-      --glass-2: rgba(255,255,255,0.04);
-      --glass-border: rgba(255,255,255,0.12);
-      --text: #f4f4f5;
-      --muted: rgba(244,244,245,0.75);
-      --accent1: #ff6600;   /* burnt-orange */
-      --accent2: #ffd24d;   /* gold */
-      --accent3: #00e6c6;   /* cyan accent */
-      --radius: 16px;
-      --shadow-lg: 0 20px 60px rgba(2,6,23,0.65);
-      --maxw: 1200px;
-      --transition: 300ms cubic-bezier(.22,.9,.35,1);
-      --glass-blur: 70px;
-      --font: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+    /* ═══════════════════════════════════════════
+       DESIGN SYSTEM — Skeuomorphic Glassmorphic Futurism
+       ═══════════════════════════════════════════ */
+    :root {
+      --black:        #020304;
+      --deep:         #050710;
+      --panel-bg:     rgba(8, 12, 24, 0.72);
+      --glass:        rgba(255,255,255,0.055);
+      --glass-2:      rgba(255,255,255,0.028);
+      --glass-3:      rgba(255,255,255,0.012);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-hi:     rgba(255,255,255,0.18);
+      --text:         #f0eeea;
+      --muted:        rgba(230,224,210,0.62);
+      --dim:          rgba(230,224,210,0.38);
+
+      /* Yoruba fire palette */
+      --orange:       #ff5e00;
+      --orange-2:     #ff8533;
+      --gold:         #ffc840;
+      --gold-2:       #ffe27a;
+      --ember:        #ff3d00;
+      --cyan:         #00ffe7;
+      --cyan-2:       #00b8a3;
+      --purple:       #6b42ff;
+
+      --r-lg:  20px;
+      --r-xl:  28px;
+      --r-pill: 999px;
+
+      /* Shadow system — skeuomorphic depth */
+      --shadow-raised:   0 2px 0 rgba(255,255,255,0.06) inset,
+                         0 -1px 0 rgba(0,0,0,0.6) inset,
+                         0 8px 32px rgba(0,0,0,0.55),
+                         0 24px 64px rgba(0,0,0,0.35);
+      --shadow-inset:    0 2px 8px rgba(0,0,0,0.8) inset,
+                         0 1px 0 rgba(255,255,255,0.04) inset;
+      --shadow-glow-o:   0 0 30px rgba(255,94,0,0.25), 0 0 80px rgba(255,94,0,0.10);
+      --shadow-glow-g:   0 0 30px rgba(255,200,64,0.20), 0 0 80px rgba(255,200,64,0.08);
+      --shadow-glow-c:   0 0 30px rgba(0,255,231,0.20);
+
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-out:    cubic-bezier(0.22, 0.9, 0.35, 1);
+      --dur:         380ms;
+
+      --maxw: 1280px;
+      --font-display: 'Cinzel', serif;
+      --font-ui:      'Rajdhani', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+      --font-big:     'Bebas Neue', sans-serif;
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
     }
 
-    /* ===== Reset & base ===== */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--font);
-      color:var(--text);
-      background:linear-gradient(180deg,#050508 0%, #0d0d10 100%);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      overflow-x:hidden;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ui);
+      background: var(--black);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
     }
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto;display:block}
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { font-family: inherit; }
 
-    /* ===== Header / Hero container ===== */
-    header.site-header{
-      position:relative;
-      overflow:visible;
+    /* ═══════════════════════════
+       CUSTOM CURSOR
+       ═══════════════════════════ */
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s var(--ease-out),
+                  width 0.25s var(--ease-spring),
+                  height 0.25s var(--ease-spring),
+                  border-color 0.2s;
+      mix-blend-mode: difference;
     }
+    #cursor-dot {
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.03s linear;
+    }
+    body:has(a:hover) #cursor-ring,
+    body:has(button:hover) #cursor-ring { width: 56px; height: 56px; border-color: var(--orange); }
 
-    /* Background visual layers */
-    .bg-visuals{
+    /* ═══════════════════════════
+       PARALLAX CAMERA WORLD
+       ═══════════════════════════ */
+    #world-wrap {
       position: fixed;
       inset: 0;
-      z-index: -3;
+      z-index: 0;
+      perspective: 1200px;
       pointer-events: none;
     }
 
-    /* Video background */
-    .bg-video {
+    /* Layer depths */
+    .cam-layer {
+      position: absolute;
+      inset: -8%;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.12s linear;
+    }
+    #layer-bg   { z-index: 1; }
+    #layer-mid  { z-index: 2; }
+    #layer-fg   { z-index: 3; }
+
+    /* Cosmic background */
+    .bg-cosmos {
       position: absolute;
       inset: 0;
-      overflow: hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      isolation:isolate;
-    }
-    .bg-video video{
-      min-width: 100%;
-      min-height: 100%;
-      width:auto;
-      height:auto;
-      object-fit: cover;
-      filter: saturate(1.05) contrast(1.02) brightness(0.70) blur(0.2px);
-      transform: scale(1.02);
+      background:
+        radial-gradient(ellipse 120% 80% at 20% 30%, rgba(255,94,0,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 80%  60% at 80% 70%, rgba(107,66,255,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0,18,40,1) 0%, var(--black) 100%);
     }
 
-    /* overlay pattern + gradient to give Yoruba vibe */
-    .bg-overlay{
-      position:absolute;
-      inset:0;
-      background: linear-gradient(180deg, rgba(10,8,12,0.6), rgba(5,5,8,0.45));
-      mix-blend-mode: multiply;
-      z-index: -1;
+    /* Animated circuit grid */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.055;
+      background-image:
+        linear-gradient(rgba(255,200,64,0.6) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,200,64,0.6) 1px, transparent 1px);
+      background-size: 80px 80px;
+      animation: grid-drift 30s linear infinite;
+    }
+    @keyframes grid-drift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 80px 80px; }
     }
 
-    /* subtle animated SVG pattern mask */
-    .pattern-mask{
-      position:absolute;
-      inset:0;
-      z-index:-2;
-      opacity:0.14;
-      pointer-events:none;
-      background-image: radial-gradient(circle at 12% 10%, rgba(255,214,77,0.07) 0px, transparent 40%),
-                        radial-gradient(circle at 82% 85%, rgba(255,102,0,0.06) 0px, transparent 35%);
-      background-size: 1200px 800px, 900px 600px;
-      animation: slow-shift 18s linear infinite;
-      mix-blend-mode: overlay;
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: orb-float 18s ease-in-out infinite;
+      pointer-events: none;
     }
-    @keyframes slow-shift {
-      from{background-position: 0% 0%, 0% 0%}
-      to{background-position: 100% 100%, -50% -20%}
+    .orb-1 { width:600px; height:600px; background:rgba(255,94,0,0.09);  top:-10%; left:-5%;  animation-delay: 0s;   }
+    .orb-2 { width:500px; height:500px; background:rgba(255,200,64,0.07); top:40%; right:-10%; animation-delay:-6s;  }
+    .orb-3 { width:400px; height:400px; background:rgba(107,66,255,0.07); bottom:10%; left:30%; animation-delay:-12s; }
+    .orb-4 { width:300px; height:300px; background:rgba(0,255,231,0.05); top:20%; left:50%;  animation-delay:-4s;  }
+
+    @keyframes orb-float {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(30px,-40px) scale(1.06); }
+      66%      { transform: translate(-20px,20px) scale(0.96); }
     }
 
-    /* particles canvas container (tsParticles) */
-    #tsparticles {
-      position:absolute;
-      inset:0;
-      z-index:-1;
-      pointer-events:none;
-      opacity:0.9;
+    /* Star field */
+    .stars {
+      position: absolute;
+      inset: 0;
     }
 
-    /* top header bar (glass) */
-    .header-inner{
-      max-width:var(--maxw);
-      margin: 1.1rem auto;
-      padding: 1rem 1.25rem;
-      display:flex;
-      gap:1rem;
-      align-items:center;
-      justify-content:space-between;
-      backdrop-filter: blur(var(--glass-blur));
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: 12px;
+    /* Scan lines */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.07) 3px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Mid layer: floating circuit elements */
+    .circuit-el {
+      position: absolute;
+      border: 1px solid rgba(255,200,64,0.12);
+      border-radius: 4px;
+      animation: circuit-pulse 4s ease-in-out infinite;
+    }
+    @keyframes circuit-pulse {
+      0%,100% { opacity: 0.4; }
+      50%      { opacity: 1; box-shadow: 0 0 12px rgba(255,200,64,0.2); }
+    }
+
+    /* Foreground: floating debris/particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: particle-drift linear infinite;
+    }
+    @keyframes particle-drift {
+      from { transform: translateY(110vh) translateX(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      to   { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+    }
+
+    /* ═══════════════════════════
+       NOISE TEXTURE OVERLAY
+       ═══════════════════════════ */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px 180px;
+    }
+
+    /* ═══════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════ */
+    #site-wrap {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ═══════════════════════════
+       GLASS PANEL MIXIN
+       ═══════════════════════════ */
+    .glass-panel {
+      background: var(--panel-bg);
+      backdrop-filter: blur(40px) saturate(1.4);
+      -webkit-backdrop-filter: blur(40px) saturate(1.4);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow-lg);
+      border-top-color: var(--glass-hi);
+      border-left-color: rgba(255,255,255,0.08);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,0.04) inset,
+        0 -1px 0 rgba(0,0,0,0.5) inset,
+        0 24px 80px rgba(0,0,0,0.6),
+        0 8px 32px rgba(0,0,0,0.4);
     }
 
-    .brand{
-      display:flex;
-      gap:0.9rem;
-      align-items:center;
+    /* ═══════════════════════════
+       NAVBAR
+       ═══════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0.6rem 1.5rem;
+      transition: all var(--dur) var(--ease-out);
     }
-    .brand img{
-      width:60px;height:60px;border-radius:50%;
-      border:3px solid rgba(255,102,0,0.85);
-      box-shadow: 0 6px 18px rgba(255,102,0,0.14);
-      background: rgba(0,0,0,0.4);
+    #navbar.scrolled .nav-inner {
+      background: rgba(4,6,14,0.90);
+      backdrop-filter: blur(60px);
+      -webkit-backdrop-filter: blur(60px);
     }
-    .brand h1{font-size:1.1rem;margin:0;color:var(--accent2);letter-spacing:0.2px}
-    .brand p{margin:0;font-size:0.85rem;color:var(--muted)}
-
-    /* nav */
-    .main-nav{
-      display:flex;
-      gap:0.5rem;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .main-nav a{
-      padding:0.45rem 0.8rem;
-      border-radius:999px;
-      font-weight:600;
-      font-size:0.9rem;
-      background:transparent;
-      border:1px solid transparent;
-      color:var(--muted);
-      transition: all var(--transition);
-    }
-    .main-nav a:hover{
-      transform: translateY(-3px);
-      color: white;
-      background: linear-gradient(90deg, rgba(255,102,0,0.12), rgba(255,210,77,0.06));
-      border-color: rgba(255,210,77,0.12);
-    }
-
-    .header-actions{display:flex;gap:.6rem;align-items:center}
-    .header-actions button{
-      background:var(--glass-2);
-      border:1px solid var(--glass-border);
-      color:var(--text);
-      padding:.5rem .7rem;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:700;
-      transition:all var(--transition);
-    }
-    .header-actions button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.4)}
-
-    /* HERO */
-    .hero{
+    .nav-inner {
       max-width: var(--maxw);
-      margin: 2.4rem auto;
-      padding: 4rem 2rem;
-      border-radius: 20px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 14px;
+      background: rgba(8,12,22,0.55);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid var(--glass-border);
+      border-top-color: rgba(255,255,255,0.15);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.07) inset,
+        0 20px 60px rgba(0,0,0,0.5);
+      transition: background var(--dur);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-shrink: 0;
+    }
+    .brand-logo {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--orange);
+      box-shadow: var(--shadow-glow-o), 0 0 0 4px rgba(255,94,0,0.08);
+      object-fit: cover;
+      position: relative;
+    }
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .brand-text span {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      font-family: var(--font-mono);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+    }
+    .nav-link {
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: all var(--dur) var(--ease-out);
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 50%; right: 50%;
+      height: 1px;
+      background: var(--gold);
+      transition: left 0.3s var(--ease-out), right 0.3s var(--ease-out);
+    }
+    .nav-link:hover {
+      color: var(--gold-2);
+      background: rgba(255,200,64,0.05);
+      border-color: rgba(255,200,64,0.08);
+    }
+    .nav-link:hover::after { left: 10%; right: 10%; }
+
+    .nav-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .icon-btn {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--glass-2);
+      border: 1px solid var(--glass-border);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s var(--ease-spring);
+    }
+    .icon-btn:hover {
+      background: rgba(255,200,64,0.08);
+      border-color: rgba(255,200,64,0.2);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .lang-btn {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 0 0.6rem;
+      width: auto;
+    }
+
+    /* ═══════════════════════════
+       HERO
+       ═══════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 1.5rem 4rem;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid var(--glass-border);
-      box-shadow: 0 30px 80px rgba(3,6,11,0.6);
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:2rem;
-      align-items:center;
-      z-index:1;
     }
 
-    .hero-content{padding-right:1rem}
-    .hero h2{
-      font-size:2.25rem;
-      margin:0 0 .4rem 0;
-      color:var(--accent2);
-      line-height:1.02;
-      letter-spacing:0.2px;
-    }
-    .hero p{
-      margin:0 0 1.25rem 0;
-      font-size:1.05rem;
-      color:var(--muted);
-    }
-    .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
-    .btn{
-      display:inline-block;
-      padding:.9rem 1.2rem;
-      border-radius:999px;
-      background: linear-gradient(90deg,var(--accent1), #ff8a3d);
-      color:#fff;
-      font-weight:700;
-      box-shadow: 0 8px 30px rgba(255,102,0,0.14);
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .btn:hover{transform: translateY(-4px) scale(1.02)}
-    .btn.outline{
-      background:transparent;
-      color:var(--accent2);
-      border:1px solid rgba(255,210,77,0.12);
-      box-shadow:none;
-    }
-
-    /* hero decoration image */
-    .hero-deco{
-      width:380px;
-      border-radius:14px;
-      opacity:0.95;
-      transform: translateY(8px);
-      border:1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.45);
-      justify-self:end;
-    }
-
-    /* make iframe cards responsive */
-    .videos-grid .video-card iframe{height:220px;border-radius:12px}
-
-    /* Sections */
-    .section{
+    .hero-inner {
       max-width: var(--maxw);
-      margin: 3rem auto;
-      padding: 2.4rem;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid var(--glass-border);
-      box-shadow: 0 30px 60px rgba(3, 7, 15, 0.5)
-    }
-    .section h3{font-size:1.6rem;margin:0 0 0.6rem 0;color:var(--accent2)}
-    .section p{margin:0 0 1.2rem 0;color:var(--muted)}
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-      gap:1.2rem;
-      align-items:start;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 3rem;
+      align-items: center;
     }
 
-    .card{
-      padding:1.1rem;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
-      border:1px solid rgba(255,255,255,0.03);
-      transition: transform var(--transition), box-shadow var(--transition);
+    /* Hero text */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.2rem;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid rgba(255,94,0,0.2);
+      border-radius: 999px;
+      background: rgba(255,94,0,0.06);
+      backdrop-filter: blur(10px);
     }
-    .card:hover{transform:translateY(-8px);box-shadow:0 18px 48px rgba(4,8,20,0.6)}
-
-    .product-card img{height:180px;object-fit:cover;border-radius:10px}
-    .product-actions{margin-top:.6rem;display:flex;gap:.6rem;flex-wrap:wrap}
-
-    /* Subscribe & contact */
-    .subscribe-card input, .contact-box input, .contact-box textarea{
-      width:100%;padding:.8rem;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);color:var(--text);
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
     }
-    .contact-box{display:flex;flex-direction:column;gap:.8rem;padding:1rem;border-radius:12px}
-    .contact-success{display:none;padding:.8rem;border-radius:8px;background:linear-gradient(90deg,#00e6c6, #ffd24d);color:#111;font-weight:700;margin-top:.6rem}
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-    /* Footer */
-    footer{max-width:var(--maxw);margin:2.5rem auto;color:var(--muted);padding:1.2rem 1rem;text-align:center}
-    footer .socials{display:flex;gap:10px;justify-content:center;margin-top:.8rem}
-
-    /* Responsive */
-    @media (max-width:980px){
-      .hero{grid-template-columns:1fr; padding:2.5rem; gap:1.2rem}
-      .hero-deco{width:100%;order:-1;opacity:.9}
-      .header-inner{flex-direction:column;align-items:stretch}
-      .main-nav{justify-content:center}
+    .hero-title {
+      font-family: var(--font-big);
+      font-size: clamp(3.5rem, 8vw, 8.5rem);
+      line-height: 0.92;
+      letter-spacing: 3px;
+      color: var(--text);
+      margin-bottom: 0.6rem;
     }
-    @media (max-width:520px){
-      .brand h1{font-size:1rem}
-      .brand p{font-size:.75rem}
-      .btn{padding:.7rem .9rem;font-size:.95rem}
-      .videos-grid .video-card iframe{height:160px}
-    }
-
-    /* little sparkle accent */
-    .badge{
-      display:inline-flex;
-      gap:.5rem;
-      align-items:center;
-      padding:.35rem .6rem;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(255,102,0,0.12), rgba(255,210,77,0.06));
-      color:var(--accent2);
-      font-weight:700;
-      font-size:.85rem;
+    .hero-title .accent { color: var(--gold); }
+    .hero-title .stroke-text {
+      -webkit-text-stroke: 1.5px rgba(255,200,64,0.4);
+      color: transparent;
     }
 
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 2.2rem;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* CTA Buttons — skeuomorphic */
+    .btn-primary {
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.85rem 1.8rem;
+      border-radius: var(--r-pill);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, #ff7a1a 0%, #ff4400 50%, #cc2a00 100%);
+      color: #fff;
+      box-shadow:
+        0 1px 0 rgba(255,180,100,0.35) inset,
+        0 -2px 0 rgba(0,0,0,0.4) inset,
+        0 8px 30px rgba(255,68,0,0.4),
+        0 24px 60px rgba(255,68,0,0.2),
+        0 2px 8px rgba(0,0,0,0.5);
+      transition: all 0.2s var(--ease-spring);
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; right: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s var(--ease-out), right 0.5s var(--ease-out);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 1px 0 rgba(255,180,100,0.4) inset,
+        0 -2px 0 rgba(0,0,0,0.4) inset,
+        0 12px 40px rgba(255,68,0,0.55),
+        0 32px 80px rgba(255,68,0,0.25),
+        0 4px 12px rgba(0,0,0,0.5);
+    }
+    .btn-primary:hover::before { left: 100%; right: -100%; }
+    .btn-primary:active { transform: translateY(-1px); }
+
+    .btn-ghost {
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.85rem 1.8rem;
+      border-radius: var(--r-pill);
+      border: 1px solid rgba(255,200,64,0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,200,64,0.04);
+      color: var(--gold);
+      backdrop-filter: blur(10px);
+      box-shadow:
+        0 1px 0 rgba(255,200,64,0.08) inset,
+        0 8px 24px rgba(0,0,0,0.3);
+      transition: all 0.2s var(--ease-spring);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,200,64,0.08);
+      border-color: rgba(255,200,64,0.4);
+      transform: translateY(-3px);
+      box-shadow:
+        0 1px 0 rgba(255,200,64,0.12) inset,
+        0 0 20px rgba(255,200,64,0.12),
+        0 12px 32px rgba(0,0,0,0.4);
+    }
+
+    /* Hero stats bar */
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .stat-num {
+      font-family: var(--font-big);
+      font-size: 2rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-family: var(--font-mono);
+    }
+    .stat-sep {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(255,200,64,0.2), transparent);
+      align-self: center;
+    }
+
+    /* Hero device — skeuomorphic Arduino mockup */
+    .hero-device {
+      position: relative;
+    }
+
+    .device-frame {
+      position: relative;
+      border-radius: 22px;
+      padding: 3px;
+      background: linear-gradient(160deg,
+        rgba(255,255,255,0.15) 0%,
+        rgba(255,200,64,0.08) 30%,
+        rgba(0,0,0,0.4) 60%,
+        rgba(255,94,0,0.08) 100%);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,0.08) inset,
+        0 -2px 0 rgba(0,0,0,0.5) inset,
+        0 40px 120px rgba(0,0,0,0.7),
+        0 0 60px rgba(255,94,0,0.08),
+        0 0 120px rgba(255,200,64,0.05);
+      animation: device-float 6s ease-in-out infinite;
+    }
+    @keyframes device-float {
+      0%,100% { transform: translateY(0) rotateX(2deg) rotateY(-3deg); }
+      50%      { transform: translateY(-16px) rotateX(-1deg) rotateY(2deg); }
+    }
+    .device-inner {
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0a0f1e, #050810);
+      border: 1px solid rgba(255,255,255,0.04);
+      position: relative;
+    }
+    .device-inner img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.1) contrast(1.05);
+    }
+    /* Skeuomorphic screen reflection */
+    .device-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.06) 0%,
+        transparent 100%);
+      border-radius: 20px 20px 0 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* HUD overlay on device */
+    .device-hud {
+      position: absolute;
+      inset: 0;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .hud-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .hud-badge {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      background: rgba(0,255,231,0.1);
+      border: 1px solid rgba(0,255,231,0.2);
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .hud-indicator {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .hud-indicator span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    .hud-indicator span:nth-child(2) { animation-delay: 0.4s; background: var(--gold); }
+    .hud-indicator span:nth-child(3) { animation-delay: 0.8s; background: var(--cyan); }
+
+    .hud-bottom {
+      padding: 0.7rem;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .hud-code {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cyan);
+      line-height: 1.7;
+    }
+    .code-kw { color: var(--orange); }
+    .code-fn { color: var(--gold); }
+    .code-cm { color: rgba(255,255,255,0.3); }
+    .code-num { color: var(--cyan-2); }
+
+    /* Floating badges around device */
+    .float-badge {
+      position: absolute;
+      padding: 0.55rem 0.9rem;
+      border-radius: 12px;
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      animation: badge-float 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .fb-1 {
+      top: -18px; right: -20px;
+      background: rgba(255,94,0,0.18);
+      border-color: rgba(255,94,0,0.25);
+      color: var(--orange-2);
+      animation-delay: -1s;
+    }
+    .fb-2 {
+      bottom: 40px; left: -22px;
+      background: rgba(0,255,231,0.12);
+      border-color: rgba(0,255,231,0.2);
+      color: var(--cyan);
+      animation-delay: -3s;
+    }
+    .fb-3 {
+      bottom: -16px; right: 30px;
+      background: rgba(255,200,64,0.12);
+      border-color: rgba(255,200,64,0.2);
+      color: var(--gold);
+      animation-delay: -2s;
+    }
+    @keyframes badge-float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* Corner decorations */
+    .corner-deco {
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.4;
+    }
+    .cd-tl { top:-4px; left:-4px; border-width: 2px 0 0 2px; }
+    .cd-tr { top:-4px; right:-4px; border-width: 2px 2px 0 0; }
+    .cd-bl { bottom:-4px; left:-4px; border-width: 0 0 2px 2px; }
+    .cd-br { bottom:-4px; right:-4px; border-width: 0 2px 2px 0; }
+
+    /* ═══════════════════════════
+       MARQUEE TICKER
+       ═══════════════════════════ */
+    .ticker-wrap {
+      padding: 0.6rem 0;
+      background: linear-gradient(90deg, rgba(255,94,0,0.08), rgba(255,200,64,0.05), rgba(255,94,0,0.08));
+      border-top: 1px solid rgba(255,200,64,0.08);
+      border-bottom: 1px solid rgba(255,200,64,0.08);
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: ticker-scroll 30s linear infinite;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .ticker-item .dot { color: var(--orange); font-size: 1rem; }
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════════════
+       SECTIONS
+       ═══════════════════════════ */
+    .section {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+      position: relative;
+    }
+    .section-header {
+      margin-bottom: 3rem;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--orange);
+    }
+    .section-title {
+      font-family: var(--font-big);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: 2px;
+      color: var(--text);
+      line-height: 0.95;
+    }
+    .section-title .gold { color: var(--gold); }
+
+    /* ═══════════════════════════
+       VIDEO GRID
+       ═══════════════════════════ */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .video-card {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--panel-bg);
+      border: 1px solid var(--glass-border);
+      border-top-color: rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-raised);
+      transition: all 0.35s var(--ease-spring);
+      transform: translateZ(0);
+      cursor: pointer;
+    }
+    .video-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      border-color: rgba(255,200,64,0.2);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.07) inset,
+        0 -1px 0 rgba(0,0,0,0.5) inset,
+        0 0 30px rgba(255,200,64,0.08),
+        0 40px 100px rgba(0,0,0,0.6);
+    }
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .video-thumb iframe {
+      width: 100%; height: 100%;
+      border: none;
+      display: block;
+    }
+    /* Skeuomorphic play overlay */
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.5) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .video-card:hover .video-overlay { opacity: 1; }
+    .play-btn-fake {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(160deg, rgba(255,120,0,0.9), rgba(200,50,0,0.9));
+      border: 2px solid rgba(255,180,80,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(255,100,0,0.5), 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .play-btn-fake::after {
+      content: '';
+      border-left: 18px solid white;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      margin-left: 4px;
+    }
+    .video-meta {
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .video-meta h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .video-meta .tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--orange);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════
+       LIBRARY CARDS
+       ═══════════════════════════ */
+    .lib-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.4rem;
+    }
+    .lib-card {
+      border-radius: var(--r-xl);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg,
+        rgba(14,18,34,0.95) 0%,
+        rgba(6,9,18,0.98) 100%);
+      border: 1px solid var(--glass-border);
+      border-top-color: rgba(255,255,255,0.12);
+      box-shadow: var(--shadow-raised);
+      transition: all 0.35s var(--ease-spring);
+    }
+    .lib-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,200,64,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .lib-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,200,64,0.2);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.07) inset,
+        0 0 40px rgba(255,200,64,0.06),
+        0 40px 100px rgba(0,0,0,0.65);
+    }
+    .lib-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(160deg, rgba(255,200,64,0.12), rgba(255,94,0,0.08));
+      border: 1px solid rgba(255,200,64,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255,200,64,0.06);
+    }
+    .lib-card h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--gold-2);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    .lib-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+    }
+    .btn-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.65rem 1.3rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-spring);
+    }
+    .btn-dl.solid {
+      background: linear-gradient(160deg, #ff7a1a, #ff4000);
+      color: white;
+      box-shadow:
+        0 1px 0 rgba(255,200,100,0.3) inset,
+        0 -1px 0 rgba(0,0,0,0.3) inset,
+        0 6px 20px rgba(255,64,0,0.3);
+    }
+    .btn-dl.solid:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 1px 0 rgba(255,200,100,0.3) inset,
+        0 -1px 0 rgba(0,0,0,0.3) inset,
+        0 10px 30px rgba(255,64,0,0.45);
+    }
+    .btn-dl.outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(255,200,64,0.2);
+      backdrop-filter: blur(10px);
+    }
+    .btn-dl.outline:hover {
+      background: rgba(255,200,64,0.07);
+      border-color: rgba(255,200,64,0.4);
+      transform: translateY(-2px);
+    }
+    .btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    /* ═══════════════════════════
+       STORE
+       ═══════════════════════════ */
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+    .product-card {
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      background: linear-gradient(160deg, rgba(12,16,28,0.97), rgba(5,8,16,0.99));
+      border: 1px solid var(--glass-border);
+      border-top-color: rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-raised);
+      transition: all 0.35s var(--ease-spring);
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      border-color: rgba(255,94,0,0.25);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.07) inset,
+        0 0 40px rgba(255,94,0,0.08),
+        0 50px 100px rgba(0,0,0,0.7);
+    }
+    .product-img {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .product-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease-out);
+      filter: saturate(0.85) brightness(0.9);
+    }
+    .product-card:hover .product-img img { transform: scale(1.06); filter: saturate(1) brightness(1); }
+    .product-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(5,8,16,0.95), transparent);
+    }
+    .product-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255,94,0,0.85);
+      color: white;
+      z-index: 2;
+    }
+    .product-body {
+      padding: 1.2rem 1.3rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-body h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.3px;
+    }
+    .product-body p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+    .price {
+      font-family: var(--font-big);
+      font-size: 1.6rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .price-old {
+      font-size: 0.75rem;
+      color: var(--dim);
+      text-decoration: line-through;
+      font-family: var(--font-mono);
+    }
+
+    /* ═══════════════════════════
+       COMPONENTS LIST
+       ═══════════════════════════ */
+    .comp-card {
+      border-radius: var(--r-xl);
+      padding: 2rem;
+      background: var(--panel-bg);
+      backdrop-filter: blur(40px);
+      border: 1px solid var(--glass-border);
+      border-top-color: rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-raised);
+    }
+    .comp-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.7rem;
+    }
+    .comp-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .comp-list li:hover {
+      background: rgba(255,200,64,0.05);
+      border-color: rgba(255,200,64,0.1);
+      color: var(--text);
+    }
+    .comp-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+      box-shadow: 0 0 8px var(--orange);
+    }
+
+    /* ═══════════════════════════
+       COMMUNITY
+       ═══════════════════════════ */
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .community-card {
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+      background: var(--glass-2);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s var(--ease-spring);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+    .community-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,200,64,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 20px rgba(255,200,64,0.05);
+    }
+    .comm-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .community-card h4 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    /* ═══════════════════════════
+       CONTACT / SUBSCRIBE
+       ═══════════════════════════ */
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .form-card {
+      border-radius: var(--r-xl);
+      padding: 2rem;
+      background: linear-gradient(160deg, rgba(12,16,28,0.96), rgba(5,8,16,0.98));
+      border: 1px solid var(--glass-border);
+      border-top-color: rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-raised);
+    }
+    .form-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      letter-spacing: 0.5px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-family: var(--font-mono);
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top-color: rgba(0,0,0,0.4);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-inset);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(255,200,64,0.25);
+      box-shadow: var(--shadow-inset), 0 0 0 3px rgba(255,200,64,0.06);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-success {
+      display: none;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(0,255,180,0.12), rgba(255,200,64,0.08));
+      border: 1px solid rgba(0,255,180,0.15);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      margin-top: 0.8rem;
+    }
+
+    /* ═══════════════════════════
+       SECTION DIVIDERS
+       ═══════════════════════════ */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255,200,64,0.12) 30%,
+        rgba(255,94,0,0.08) 70%,
+        transparent);
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════
+       FOOTER
+       ═══════════════════════════ */
+    footer {
+      padding: 3rem 1.5rem;
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .footer-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--dim);
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+    .socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .social-link {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--glass-2);
+      border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s var(--ease-spring);
+      color: var(--muted);
+    }
+    .social-link:hover {
+      background: rgba(255,200,64,0.08);
+      border-color: rgba(255,200,64,0.2);
+      color: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    /* ═══════════════════════════
+       REVEAL ANIMATIONS
+       ═══════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ═══════════════════════════
+       RESPONSIVE
+       ═══════════════════════════ */
+    @media (max-width: 1000px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-device { max-width: 480px; margin: 0 auto; }
+      .hero-title { font-size: clamp(3rem, 10vw, 6rem); }
+    }
+    @media (max-width: 680px) {
+      #navbar { padding: 0.5rem 0.8rem; }
+      .main-nav { display: none; }
+      .hero { padding: 6rem 1rem 3rem; }
+      .section { padding: 3.5rem 1rem; }
+    }
+
+    /* ═══════════════════════════
+       PERFORMANCE BACKGROUND SECTION
+       ═══════════════════════════ */
+    #perf-bg {
+      position: relative;
+      padding: 4rem 0;
+      overflow: hidden;
+    }
+    #perf-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(255,94,0,0.03) 0%,
+        rgba(255,200,64,0.04) 50%,
+        rgba(107,66,255,0.02) 100%);
+    }
+
+    /* Progress bars for skills */
+    .skill-bar-wrap {
+      margin-top: 0.5rem;
+    }
+    .skill-bar-track {
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: var(--shadow-inset);
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--orange), var(--gold));
+      box-shadow: 0 0 10px rgba(255,150,0,0.4);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.2s var(--ease-out);
+    }
+    .skill-bar-fill.animated { transform: scaleX(1); }
+
+    /* CTA band */
+    .cta-band {
+      margin: 0 auto;
+      max-width: var(--maxw);
+      padding: 0 1.5rem 5rem;
+    }
+    .cta-box {
+      border-radius: 24px;
+      padding: 3.5rem;
+      background: linear-gradient(135deg,
+        rgba(255,94,0,0.12) 0%,
+        rgba(255,200,64,0.06) 50%,
+        rgba(107,66,255,0.06) 100%);
+      border: 1px solid rgba(255,200,64,0.1);
+      border-top-color: rgba(255,255,255,0.12);
+      box-shadow: var(--shadow-raised);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at center, rgba(255,200,64,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cta-box h2 {
+      font-family: var(--font-big);
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      letter-spacing: 3px;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+    .cta-box h2 span { color: var(--gold); }
+    .cta-box p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Scroll indicator */
+    .scroll-ind {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.5;
+    }
+    .scroll-ind span {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: rotate(45deg);
+      animation: scroll-bounce 1.8s ease-in-out infinite;
+    }
+    @keyframes scroll-bounce {
+      0%,100% { transform: rotate(45deg) translateY(0); opacity: 0.5; }
+      50%      { transform: rotate(45deg) translateY(6px); opacity: 1; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Background visual layers -->
-  <div class="bg-visuals" aria-hidden="true">
-    <div class="bg-video">
-      <!-- Put your Yoruba cultural abstract pattern video here -->
-      <!-- IMPORTANT: add the file ./assets/video/yoruba-abstract.mp4 or update the src -->
-      <video id="bgVideo" autoplay muted loop playsinline poster="./assets/images/hero.jpg">
-        <source src="./assets/backintro.mp4" type="video/mp4">
-        <!-- fallback: animated gif -->
-      </video>
+  <!-- Custom Cursor -->
+  <div id="cursor-ring"></div>
+  <div id="cursor-dot"></div>
+
+  <!-- ═══════════════════════════
+       PARALLAX CAMERA WORLD
+       ═══════════════════════════ -->
+  <div id="world-wrap" aria-hidden="true">
+    <div class="cam-layer" id="layer-bg" data-speed="0.015">
+      <div class="bg-cosmos"></div>
+      <div class="bg-grid"></div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+      <canvas id="star-canvas"></canvas>
     </div>
 
-    <div id="tsparticles"></div>
-    <div class="pattern-mask"></div>
-    <div class="bg-overlay"></div>
+    <div class="cam-layer" id="layer-mid" data-speed="0.035">
+      <!-- Floating circuit elements — generated by JS -->
+      <div id="circuit-container"></div>
+    </div>
+
+    <div class="cam-layer" id="layer-fg" data-speed="0.06">
+      <div id="particle-container"></div>
+      <div class="scanlines"></div>
+    </div>
   </div>
 
-  <header class="site-header" role="banner">
-    <div class="header-inner" role="navigation" aria-label="Primary">
-      <div class="brand" title="Kóòdù Yoruba">
-        <img id="logo" src="./assets/images/koodu-yoruba.jpg" alt="Kóòdù Yoruba logo" />
-        <div>
-          <h1 id="site-title">Kóòdù Yoruba</h1>
-          <p id="site-subtitle">Learn hardware programming in Yoruba</p>
+  <!-- ═══════════════════════════
+       SITE CONTENT
+       ═══════════════════════════ -->
+  <div id="site-wrap">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" role="navigation" aria-label="Primary">
+      <div class="nav-inner">
+        <div class="brand">
+          <img class="brand-logo" src="./assets/images/koodu-yoruba.jpg" alt="Kóòdù Yoruba" onerror="this.style.display='none'"/>
+          <div class="brand-text">
+            <h1>Kóòdù Yoruba</h1>
+            <span id="site-subtitle">Learn hardware in Yoruba</span>
+          </div>
+        </div>
+
+        <div class="main-nav">
+          <a class="nav-link" href="#videos">Videos</a>
+          <a class="nav-link" href="#library">Library</a>
+          <a class="nav-link" href="#store">Store</a>
+          <a class="nav-link" href="#components">Components</a>
+          <a class="nav-link" href="#community">Community</a>
+          <a class="nav-link" href="#support">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+          <button class="icon-btn lang-btn" id="toggle-lang" title="Toggle language">EN/YR</button>
+          <a class="btn-primary" href="https://www.youtube.com/@KóòdùYoruba" target="_blank" rel="noopener" style="padding:0.5rem 1rem;font-size:0.75rem;border-radius:8px">▶ Subscribe</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="hero" role="banner">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>Ẹ̀kọ́ Yorùbá • Hardware • Arduino</span>
+          </div>
+
+          <h2 class="hero-title" id="hero-title">
+            <span class="accent">Kóòdù</span><br>
+            <span class="stroke-text">Yoruba</span>
+          </h2>
+
+          <p class="hero-sub" id="hero-sub">
+            Program Arduino and hardware systems in the Yoruba language. Bridging African heritage with cutting-edge technology.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn-primary" href="#videos" id="cta-watch">▶ Watch Tutorials</a>
+            <a class="btn-ghost" href="#library" id="cta-download">↓ Download Library</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-num">4+</span>
+              <span class="stat-label">Tutorials</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat">
+              <span class="stat-num">1</span>
+              <span class="stat-label">Library</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat">
+              <span class="stat-num">∞</span>
+              <span class="stat-label">Learners</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Device Mockup -->
+        <div class="hero-device">
+          <div class="device-frame">
+            <div class="device-inner">
+              <img src="./assets/images/hero.jpeg" alt="Arduino hardware project" onerror="this.style.background='linear-gradient(160deg,#0a0f1e,#050810)';this.style.height='320px'"/>
+              <div class="device-hud">
+                <div class="hud-top">
+                  <div class="hud-badge">◉ Ṣiṣẹ Lọ</div>
+                  <div class="hud-indicator">
+                    <span></span><span></span><span></span>
+                  </div>
+                </div>
+                <div class="hud-bottom">
+                  <div class="hud-code">
+                    <div><span class="code-cm">// AdeYorubaDuino</span></div>
+                    <div><span class="code-kw">epa</span> AdeYorubaDuino.h</div>
+                    <div><span class="code-kw">ìpín</span> ina = <span class="code-num">13</span>;</div>
+                    <div><span class="code-fn">àgbékalẹ̀</span>() { <span class="code-fn">àpilẹkun</span>(ina, <span class="code-num">ÌJÁ</span>); }</div>
+                    <div><span class="code-fn">yípo</span>() { <span class="code-fn">titan</span>(ina); }</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badges -->
+          <div class="float-badge fb-1">🔥 Arduino UNO</div>
+          <div class="float-badge fb-2">⚡ Yoruba API</div>
+          <div class="float-badge fb-3">✦ Free Library</div>
+
+          <!-- Corner decorations -->
+          <div class="corner-deco cd-tl"></div>
+          <div class="corner-deco cd-tr"></div>
+          <div class="corner-deco cd-bl"></div>
+          <div class="corner-deco cd-br"></div>
         </div>
       </div>
 
-      <nav class="main-nav" role="navigation" aria-label="Main">
-        <a href="#videos">Videos</a>
-        <a href="#library">Library</a>
-        <a href="#store">Store</a>
-        <a href="#components">Components</a>
-        <a href="#community">Community</a>
-        <a href="#support">Support</a>
-      </nav>
+      <div class="scroll-ind">
+        <span>Scroll</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </header>
 
-      <div class="header-actions">
-        <button id="toggle-dark" aria-pressed="false" title="Toggle dark mode">🌙</button>
-        <button id="toggle-lang" aria-pressed="false" title="Toggle language">EN/YR</button>
+    <!-- TICKER -->
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker-track" id="ticker">
+        <!-- Filled by JS -->
       </div>
     </div>
 
-    <div class="hero" role="region" aria-label="hero">
-      <div class="hero-content">
-        <div class="badge">Kóòdù • Yoruba</div>
-        <h2 id="hero-title">Kóòdù Yoruba</h2>
-        <p id="hero-sub">Programming Arduino and hardware in Yoruba.</p>
-        <div class="hero-cta">
-          <a class="btn" href="#videos" id="cta-watch">Watch Tutorials</a>
-          <a class="btn outline" href="#library" id="cta-download">Download Library</a>
+    <main>
+      <!-- VIDEOS -->
+      <section id="videos" style="padding-top:1px">
+        <div class="section">
+          <div class="section-header reveal">
+            <div class="section-label">Ẹ̀kọ́ • Tutorials</div>
+            <h3 class="section-title">Latest <span class="gold">Videos</span></h3>
+          </div>
+          <div class="videos-grid">
+            <article class="video-card reveal reveal-delay-1">
+              <div class="video-thumb">
+                <iframe loading="lazy" src="https://www.youtube.com/embed/ZK3uvnh2xi0" title="Introduction to Koodu Yoruba" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-overlay"><div class="play-btn-fake"></div></div>
+              </div>
+              <div class="video-meta">
+                <div class="tag">● Ìfilọ́lẹ̀</div>
+                <h4>Introduction to Kóòdù Yoruba Channel</h4>
+              </div>
+            </article>
+            <article class="video-card reveal reveal-delay-2">
+              <div class="video-thumb">
+                <iframe loading="lazy" src="https://www.youtube.com/embed/sKk3L0EnLko" title="Library Download" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-overlay"><div class="play-btn-fake"></div></div>
+              </div>
+              <div class="video-meta">
+                <div class="tag">● Library</div>
+                <h4>Bi a she ngba laibiri ati bi Arduino ide se n sise</h4>
+              </div>
+            </article>
+            <article class="video-card reveal reveal-delay-3">
+              <div class="video-thumb">
+                <iframe loading="lazy" src="https://www.youtube.com/embed/VWmqdU8KRis" title="LED Blinking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-overlay"><div class="play-btn-fake"></div></div>
+              </div>
+              <div class="video-meta">
+                <div class="tag">● LED • Ina</div>
+                <h4>Idan wo bi ina se n sise — LED Blinking Yoruba</h4>
+              </div>
+            </article>
+            <article class="video-card reveal reveal-delay-4">
+              <div class="video-thumb">
+                <iframe loading="lazy" src="https://www.youtube.com/embed/wl3lA-NtqWo" title="Blink Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-overlay"><div class="play-btn-fake"></div></div>
+              </div>
+              <div class="video-meta">
+                <div class="tag">● Ẹ̀kọ́</div>
+                <h4>Eko ina titan — Blink Tutorial in Yoruba</h4>
+              </div>
+            </article>
+          </div>
         </div>
-        <p style="margin-top:1rem;color:var(--muted)">Subscribe to the channel for code, parts and Yoruba explanations.</p>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- LIBRARY -->
+      <section id="library">
+        <div class="section">
+          <div class="section-header reveal">
+            <div class="section-label">Gba • Download</div>
+            <h3 class="section-title">Ade<span class="gold">Yoruba</span>Duino</h3>
+          </div>
+          <div class="lib-grid">
+            <div class="lib-card reveal reveal-delay-1">
+              <div class="lib-icon">📦</div>
+              <h4>AdeYorubaDuino.zip</h4>
+              <p>Complete Yoruba Arduino library. Includes headers, source files, working examples, and full documentation in Yoruba.</p>
+              <a class="btn-dl solid" href="./downloads/AdeYorubaDuino.zip" download>↓ Download Library</a>
+            </div>
+            <div class="lib-card reveal reveal-delay-2">
+              <div class="lib-icon">📖</div>
+              <h4>Vocabulary Dictionary</h4>
+              <p>Complete Yoruba → English keyword and API mapping. Use this alongside the library to understand every function and command.</p>
+              <div class="btn-row">
+                <a class="btn-dl outline" href="./downloads/AdeYorubaDuino_Dictionary.docx" download>↓ DOCX</a>
+                <a class="btn-dl outline" href="./downloads/AdeYorubaDuino_Dictionary.pdf" download>↓ PDF</a>
+              </div>
+            </div>
+            <div class="lib-card reveal reveal-delay-3">
+              <div class="lib-icon">⚙️</div>
+              <h4>Quick Setup</h4>
+              <p>Install the library in Arduino IDE, open an example sketch, and say <em style="color:var(--gold-2)">"àgbékalẹ̀"</em> — setup — in Yoruba. You are ready.</p>
+              <a class="btn-dl solid" href="#videos" style="background:linear-gradient(160deg,#1a6bff,#0040cc)">▶ Watch Guide</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- STORE -->
+      <section id="store">
+        <div class="section">
+          <div class="section-header reveal">
+            <div class="section-label">Ìtaja • Shop</div>
+            <h3 class="section-title">Support the <span class="gold">Channel</span></h3>
+          </div>
+          <div class="store-grid">
+            <article class="product-card reveal reveal-delay-1">
+              <div class="product-img">
+                <span class="product-badge">Starter</span>
+                <img src="./assets/images/uno.jpg" alt="Arduino Uno Kit" onerror="this.style.background='#0a0f1e';this.style.height='200px'"/>
+              </div>
+              <div class="product-body">
+                <h4>Arduino Uno Kit</h4>
+                <p>Complete starter kit with breadboard, LEDs, resistors, and jumper wires. Perfect for your first Yoruba project.</p>
+                <div class="product-footer">
+                  <div>
+                    <div class="price-old">₦12,000</div>
+                    <div class="price">₦9,500</div>
+                  </div>
+                  <a class="btn-primary" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener" style="padding:0.6rem 1.2rem;font-size:0.78rem;border-radius:10px">Buy Now</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal reveal-delay-2">
+              <div class="product-img">
+                <span class="product-badge">Sensor</span>
+                <img src="./assets/images/dht.jpg" alt="DHT11 Sensor" onerror="this.style.background='#0a0f1e';this.style.height='200px'"/>
+              </div>
+              <div class="product-body">
+                <h4>DHT11 Temperature Sensor</h4>
+                <p>Temperature and humidity sensor. Great for weather projects in Yoruba code.</p>
+                <div class="product-footer">
+                  <div class="price">₦3,500</div>
+                  <a class="btn-primary" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener" style="padding:0.6rem 1.2rem;font-size:0.78rem;border-radius:10px">Buy Now</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal reveal-delay-3">
+              <div class="product-img">
+                <span class="product-badge">Tool</span>
+                <img src="./assets/images/bread.jpg" alt="Breadboard" onerror="this.style.background='#0a0f1e';this.style.height='200px'"/>
+              </div>
+              <div class="product-body">
+                <h4>Breadboard</h4>
+                <p>Full-size breadboard for rapid prototyping. Build any circuit from your Yoruba tutorial.</p>
+                <div class="product-footer">
+                  <div class="price">₦4,500</div>
+                  <a class="btn-primary" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener" style="padding:0.6rem 1.2rem;font-size:0.78rem;border-radius:10px">Buy Now</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- COMPONENTS -->
+      <section id="components">
+        <div class="section">
+          <div class="section-header reveal">
+            <div class="section-label">Àwọn Ohun · Components</div>
+            <h3 class="section-title">What You <span class="gold">Need</span></h3>
+          </div>
+          <div class="comp-card reveal">
+            <ul class="comp-list">
+              <li>Arduino Uno / Nano</li>
+              <li>Breadboard</li>
+              <li>Jumper Wires</li>
+              <li>LED (various colours)</li>
+              <li>Resistors (220Ω, 10kΩ)</li>
+              <li>Servo Motor</li>
+              <li>Stepper Motor</li>
+              <li>Ultrasonic Sensor (HC-SR04)</li>
+              <li>DHT11 Temperature Sensor</li>
+              <li>LCD Display (16x2)</li>
+              <li>Push Buttons</li>
+              <li>USB Cable (Type-B)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- COMMUNITY -->
+      <section id="community">
+        <div class="section">
+          <div class="section-header reveal">
+            <div class="section-label">Àjọ · Community</div>
+            <h3 class="section-title">Join the <span class="gold">Movement</span></h3>
+          </div>
+          <div class="community-grid">
+            <a class="community-card reveal reveal-delay-1" href="https://t.me/kooduYoruba" target="_blank" rel="noopener">
+              <div class="comm-icon">✈️</div>
+              <h4>Telegram</h4>
+              <span style="font-size:0.75rem;color:var(--muted)">Join the chat group</span>
+              <span class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.72rem;pointer-events:none">Join →</span>
+            </a>
+            <a class="community-card reveal reveal-delay-2" href="https://discord.gg/yourserver" target="_blank" rel="noopener">
+              <div class="comm-icon">🎮</div>
+              <h4>Discord</h4>
+              <span style="font-size:0.75rem;color:var(--muted)">Real-time Q&A</span>
+              <span class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.72rem;pointer-events:none">Join →</span>
+            </a>
+            <a class="community-card reveal reveal-delay-3" href="https://github.com/yourusername" target="_blank" rel="noopener">
+              <div class="comm-icon">🐙</div>
+              <h4>GitHub</h4>
+              <span style="font-size:0.75rem;color:var(--muted)">Source code & issues</span>
+              <span class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.72rem;pointer-events:none">Visit →</span>
+            </a>
+            <a class="community-card reveal reveal-delay-4" href="https://www.facebook.com/profile.php?id=61581761048106" target="_blank" rel="noopener">
+              <div class="comm-icon">📘</div>
+              <h4>Facebook</h4>
+              <span style="font-size:0.75rem;color:var(--muted)">Community updates</span>
+              <span class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.72rem;pointer-events:none">Visit →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- SUPPORT & CONTACT -->
+      <section id="support">
+        <div class="section">
+          <div class="section-header reveal">
+            <div class="section-label">Ìtìlẹ́yìn · Support</div>
+            <h3 class="section-title">Get in <span class="gold">Touch</span></h3>
+          </div>
+          <div class="support-grid">
+            <!-- Subscribe -->
+            <div class="form-card reveal reveal-delay-1">
+              <h4>✦ Subscribe for Updates</h4>
+              <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem">Get code snippets, kit discounts and new tutorial alerts direct to your inbox.</p>
+              <form id="subscribeForm" action="https://formspree.io/f/yourformid" method="POST">
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" name="email" placeholder="yoruba@gmail.com" required/>
+                </div>
+                <input type="hidden" name="_subject" value="New subscriber from Kóòdù Yoruba"/>
+                <button class="btn-primary" type="submit" style="width:100%;justify-content:center">Subscribe Now</button>
+                <div class="form-success" id="subscribeSuccess">A dupẹ́! You are now subscribed.</div>
+              </form>
+              <div style="margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.05)">
+                <p style="font-size:0.75rem;color:var(--dim);margin-bottom:0.7rem">Or subscribe directly on YouTube:</p>
+                <a class="btn-ghost" href="https://www.youtube.com/@KóòdùYoruba" target="_blank" rel="noopener" style="font-size:0.78rem;padding:0.55rem 1.1rem">▶ YouTube Channel</a>
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="form-card reveal reveal-delay-2">
+              <h4>✦ Send a Message</h4>
+              <form id="contactForm" action="https://formspree.io/f/yourformid" method="POST">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" name="name" placeholder="Your name" required/>
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" name="email" placeholder="you@example.com" required/>
+                </div>
+                <div class="form-group">
+                  <label>Message</label>
+                  <textarea name="message" placeholder="Kọ ìrọ̀ rẹ níbí..." required></textarea>
+                </div>
+                <button class="btn-primary" type="submit" style="width:100%;justify-content:center">Send Message</button>
+                <div class="form-success" id="contactSuccess">Ẹ kú iṣẹ́! Message sent — we will reply soon.</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA BAND -->
+      <div class="cta-band">
+        <div class="cta-box reveal">
+          <h2>Kọ́ Àti <span>Yorùbá</span></h2>
+          <p>Join thousands of learners bringing the Yoruba language into the future of technology.</p>
+          <a class="btn-primary" href="https://www.youtube.com/@KóòdùYoruba" target="_blank" rel="noopener" style="font-size:0.95rem;padding:1rem 2.2rem">▶ Start Learning Free</a>
+        </div>
       </div>
 
-      <img class="hero-deco" src="./assets/images/hero.jpeg" alt="Arduino examples" aria-hidden="true"/>
-    </div>
-  </header>
+    </main>
 
-  <main>
-    <!-- Videos -->
-    <section id="videos" class="section" aria-labelledby="videosTitle">
-      <h3 id="videosTitle">Latest Tutorials</h3>
-      <p id="videosDesc">Shorts and full tutorials in Yoruba.</p>
-      <div class="grid videos-grid" id="videosGrid">
-        <!-- Responsive video cards -->
-        <article class="card video-card" data-animate>
-          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:12px">
-            <iframe loading="lazy" src="https://www.youtube.com/embed/ZK3uvnh2xi0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <h4>Introduction to Koodu Yoruba Channel (Yoruba)</h4>
-        </article>
-
-        <article class="card video-card" data-animate>
-          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:12px">
-            <iframe loading="lazy" src="https://www.youtube.com/embed/sKk3L0EnLko" title="Library download" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <h4>Bi a she ngba laibiri ati bi Arduino ide se n sise (Library Download)</h4>
-        </article>
-
-        <article class="card video-card" data-animate>
-          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:12px">
-            <iframe loading="lazy" src="https://www.youtube.com/embed/VWmqdU8KRis" title="LED Blinking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <h4>Idan wo bi ina se n sise (LED Blinking Yoruba)</h4>
-        </article>
-
-        <article class="card video-card" data-animate>
-          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:12px">
-            <iframe loading="lazy" src="https://www.youtube.com/embed/wl3lA-NtqWo" title="Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <h4>Eko ina titan (Blink Tutorial)</h4>
-        </article>
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-brand">Kóòdù Yoruba</div>
+        <div class="socials">
+          <a class="social-link" href="https://github.com/your-koodu-yoruba-repo" target="_blank" aria-label="GitHub">⌥</a>
+          <a class="social-link" href="https://www.youtube.com/@KóòdùYoruba" target="_blank" aria-label="YouTube">▶</a>
+          <a class="social-link" href="https://t.me/kooduYoruba" target="_blank" aria-label="Telegram">✈</a>
+          <a class="social-link" href="https://www.facebook.com/profile.php?id=61581761048106" target="_blank" aria-label="Facebook">f</a>
+        </div>
+        <div class="footer-copy">© 2025 Kóòdù Yoruba — Built by Ayelangbe Adeyinka · Made with ❤️ and Yoruba Pride</div>
       </div>
-    </section>
+    </footer>
 
-    <!-- Library -->
-    <section id="library" class="section" aria-labelledby="libraryTitle">
-      <h3 id="libraryTitle">AdeYorubaDuino Library</h3>
-      <p id="libraryDesc">Download the Yoruba Arduino library and the dictionary (docx / pdf).</p>
-      <div class="grid">
-        <div class="card" data-animate>
-          <h4>AdeYorubaDuino.zip</h4>
-          <p>Includes header, source, examples and docs.</p>
-          <a class="btn" href="./downloads/AdeYorubaDuino.zip" download>Download Library</a>
-        </div>
-        <div class="card" data-animate>
-          <h4>Dictionary (Word & PDF)</h4>
-          <p>Yoruba → English mapping of keywords & APIs.</p>
-          <div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">
-            <a class="btn outline" href="./downloads/AdeYorubaDuino_Dictionary.docx" download>Download DOCX</a>
-            <a class="btn outline" href="./downloads/AdeYorubaDuino_Dictionary.pdf" download>Download PDF</a>
-          </div>
-        </div>
-      </div>
-    </section>
+  </div><!-- /site-wrap -->
 
-    <!-- Store -->
-    <section id="store" class="section" aria-labelledby="storeTitle">
-      <h3 id="storeTitle">Store Support the Channel</h3>
-      <p>Buy starter kits, sensors and more. Links go to your payment or shop pages.</p>
-      <div class="grid product-grid">
-        <article class="product-card card" data-animate>
-          <img src="./assets/images/uno.jpg" alt="Arduino Uno" />
-          <h4>Arduino Uno Kit</h4>
-          <p>Starter kit with breadboard, LEDs, sensors.</p>
-          <div class="product-actions">
-            <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy <del style="opacity:.6;margin-left:.4rem">₦12,000</del></a>
-          </div>
-        </article>
-
-        <article class="product-card card" data-animate>
-          <img src="./assets/images/dht.jpg" alt="DHT11 Sensor" />
-          <h4>DHT11 Temperature Sensor</h4>
-          <p>Temperature & humidity sensor.</p>
-          <div class="product-actions">
-            <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy ₦3,500</a>
-          </div>
-        </article>
-
-        <article class="product-card card" data-animate>
-          <img src="./assets/images/bread.jpg" alt="Breadboard" />
-          <h4>Breadboard</h4>
-          <p>Breadboard for prototyping.</p>
-          <div class="product-actions">
-            <a class="btn" href="https://www.paypal.com/paypalme/yourlink" target="_blank" rel="noopener">Buy ₦4,500</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Components -->
-    <section id="components" class="section" aria-labelledby="componentsTitle">
-      <h3 id="componentsTitle">Components</h3>
-      <p>Suggested components and bundles for learners.</p>
-      <div class="card" data-animate>
-        <ul style="margin:0 0 0 1.1rem;padding:0.2rem 0;color:var(--muted)">
-          <li>Arduino Uno / Nano</li>
-          <li>Breadboard & Jumper Wires</li>
-          <li>Servo, Stepper, Ultrasonic, DHT11</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Community -->
-    <section id="community" class="section" aria-labelledby="communityTitle">
-      <h3 id="communityTitle">Community</h3>
-      <p>Join the Telegram, Discord, or GitHub to share projects and ask questions.</p>
-      <div class="grid">
-        <div class="card" data-animate>
-          <h4>Telegram</h4>
-          <a class="btn outline" href="https://t.me/kooduYoruba" target="_blank">Join</a>
-        </div>
-        <div class="card" data-animate>
-          <h4>Discord</h4>
-          <a class="btn outline" href="https://discord.gg/yourserver" target="_blank">Join</a>
-        </div>
-        <div class="card" data-animate>
-          <h4>GitHub</h4>
-          <a class="btn outline" href="https://github.com/yourusername" target="_blank">Visit</a>
-        </div>
-        <div class="card" data-animate>
-          <h4>Facebook</h4>
-          <a class="btn outline" href="https://www.facebook.com/profile.php?id=61581761048106" target="_blank">Visit</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Subscribe / Contact -->
-    <section id="support" class="section" aria-labelledby="supportTitle">
-      <h3 id="supportTitle">Support & Contact</h3>
-      <p id="supportDesc">Send a message, subscribe, or sponsor the channel.</p>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem">
-        <div class="card subscribe-card" data-animate>
-          <h4>Subscribe</h4>
-          <p>Get updates, code and discounts.</p>
-          <form id="subscribeForm" action="https://formspree.io/f/yourformid" method="POST">
-            <input type="email" name="email" id="subscriberEmail" placeholder="yoruba@gmail.com" required />
-            <input type="hidden" name="_subject" value="New subscriber from website" />
-            <button class="btn" type="submit">Subscribe</button>
-            <div id="subscribeSuccess" class="contact-success" role="status">Thank you — A dupẹ́! You are subscribed.</div>
-          </form>
-          <small style="display:block;margin-top:.6rem;color:var(--muted)">Or click to subscribe on YouTube:</small>
-          <div style="margin-top:.5rem">
-            <a class="btn outline" id="yt-subscribe" href="https://www.youtube.com/channel/UC_KóòduYoruba?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
-          </div>
-        </div>
-
-        <div class="card" data-animate>
-          <h4>Contact Us</h4>
-          <form id="contactForm" action="https://formspree.io/f/yourformid" method="POST" class="contact-box">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required />
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required />
-
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
-
-            <button class="btn" type="submit">Send Message</button>
-            <div id="contactSuccess" class="contact-success" role="status">Message sent —> Ẹ kú iṣẹ́! We will reply soon.</div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer" role="contentinfo">
-    <div style="max-width:var(--maxw);margin:0 auto;padding:1rem">
-      <p>&copy; 2025 Kóòdù Yoruba Built by Ayelangbe Adeyinka</p>
-      <p style="color:var(--muted)"><small>Made with ❤️ and Yoruba pride</small></p>
-
-      <div class="socials" style="margin-top:.6rem">
-        <a href="https://github.com/your-koodu-yoruba-repo" target="_blank" aria-label="GitHub"><i data-lucide="github"></i></a>
-        <a href="https://www.youtube.com/@KóòdùYoruba" target="_blank" aria-label="YouTube"><i data-lucide="youtube"></i></a>
-        <a href="#" target="_blank" aria-label="Twitter"><i data-lucide="twitter"></i></a>
-        <a href="#" target="_blank" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-        <a href="#" target="_blank" aria-label="Facebook"><i data-lucide="facebook"></i></a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- SCRIPT: Core interactions, particles, GSAP animations -->
   <script>
-    // Wait for window load to start non-critical visuals
-    (function(){
-      // ---------- Utilities ----------
-      const qs = s => document.querySelector(s);
-      const qsa = s => Array.from(document.querySelectorAll(s));
+  (function () {
+    'use strict';
 
-      // ---------- Dark mode & Language state ----------
-      const darkBtn = qs('#toggle-dark');
-      const langBtn = qs('#toggle-lang');
-      const siteTitle = qs('#site-title');
-      const siteSubtitle = qs('#site-subtitle');
-      const heroTitle = qs('#hero-title');
-      const heroSub = qs('#hero-sub');
-      const videosTitle = qs('#videosTitle');
-      const videosDesc = qs('#videosDesc');
-      const libraryTitle = qs('#libraryTitle');
-      const libraryDesc = qs('#libraryDesc');
-      const supportDesc = qs('#supportDesc');
-      const ctaWatch = qs('#cta-watch');
-      const ctaDownload = qs('#cta-download');
+    /* ════════════════════════════════════════════
+       CUSTOM CURSOR
+    ════════════════════════════════════════════ */
+    const ring = document.getElementById('cursor-ring');
+    const dot  = document.getElementById('cursor-dot');
+    let mx = -200, my = -200, rx = -200, ry = -200;
 
-      let dark = localStorage.getItem('darkMode') === 'true';
-      let yoruba = localStorage.getItem('yorubaLang') === 'true';
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
 
-      function applyDark(){
-        document.documentElement.style.setProperty('--bg-dark', dark ? '#020203' : '#0b0b0e');
-        if(dark){
-          document.body.style.background = 'linear-gradient(180deg,#020203 0%, #0b0b0d 100%)';
-          darkBtn.textContent = '☀️';
-          darkBtn.setAttribute('aria-pressed', 'true');
-        } else {
-          darkBtn.textContent = '🌙';
-          darkBtn.setAttribute('aria-pressed', 'false');
-          document.body.style.background = 'linear-gradient(180deg,#050508 0%, #0d0d10 100%)';
-        }
-        localStorage.setItem('darkMode', dark);
-      }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function animateCursor() {
+      rx = lerp(rx, mx, 0.12);
+      ry = lerp(ry, my, 0.12);
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
 
-      function applyLanguage(){
-        if(yoruba){
-          siteTitle.textContent = 'Kóòdù Yoruba';
-          siteSubtitle.textContent = 'Kọ́ ẹ̀kọ́ ìṣàkóso hardware ní èdè Yorùbá';
-          heroTitle.textContent = 'Kóòdù Yoruba';
-          heroSub.textContent = 'Kọ́ Arduino àti hardware ní Yorùbá';
-          videosTitle.textContent = 'Àwọn Ẹ̀kọ́ Tó Ṣẹ́yìn Jùlọ';
-          videosDesc.textContent = 'Àwọn movies kékèké àti ẹkọ́ pípẹ́ ní èdè Yorùbá';
-          libraryTitle.textContent = 'AdeYorubaDuino Láilìbrárì';
-          libraryDesc.textContent = 'Gba ilẹ̀kùn Yorùbá Arduino';
-          supportDesc.textContent = 'Ránṣẹ́ tàbí ṣe àtìlẹ́yìn fún ikanni';
-          ctaWatch.textContent = 'Wo Ẹ̀kọ́';
-          ctaDownload.textContent = 'Gba Láilìbrárì';
-          langBtn.setAttribute('aria-pressed','true');
-        } else {
-          siteTitle.textContent = 'Kóòdù Yoruba';
-          siteSubtitle.textContent = 'Learn hardware programming in Yoruba';
-          heroTitle.textContent = 'Kóòdù Yoruba';
-          heroSub.textContent = 'Programming Arduino and hardware in Yoruba.';
-          videosTitle.textContent = 'Latest Tutorials';
-          videosDesc.textContent = 'Shorts and full tutorials in Yoruba.';
-          libraryTitle.textContent = 'AdeYorubaDuino Library';
-          libraryDesc.textContent = 'Download the Yoruba Arduino library and the dictionary (docx / pdf).';
-          supportDesc.textContent = 'Send a message, subscribe, or sponsor the channel.';
-          ctaWatch.textContent = 'Watch Tutorials';
-          ctaDownload.textContent = 'Download Library';
-          langBtn.setAttribute('aria-pressed','false');
-        }
-        localStorage.setItem('yorubaLang', yoruba);
-      }
+    /* ════════════════════════════════════════════
+       PARALLAX CAMERA — mouse + scroll
+    ════════════════════════════════════════════ */
+    const layers = document.querySelectorAll('.cam-layer');
+    let mouseX = 0, mouseY = 0;
+    let scrollY = 0;
+    let camX = 0, camY = 0;
 
-      // initialize
-      applyDark();
-      applyLanguage();
+    document.addEventListener('mousemove', e => {
+      mouseX = (e.clientX / window.innerWidth  - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+    });
 
-      darkBtn.addEventListener('click', ()=>{
-        dark = !dark; applyDark();
-      });
-      langBtn.addEventListener('click', ()=>{
-        yoruba = !yoruba; applyLanguage();
+    window.addEventListener('scroll', () => {
+      scrollY = window.scrollY;
+    });
+
+    let tX = 0, tY = 0;
+    function updateCamera() {
+      tX = lerp(tX, mouseX, 0.06);
+      tY = lerp(tY, mouseY, 0.06);
+
+      layers.forEach(layer => {
+        const speed  = parseFloat(layer.dataset.speed || 0.02);
+        const tx     = tX * speed * 320;
+        const ty     = tY * speed * 200;
+        const scroll = scrollY * speed * 0.5;
+
+        layer.style.transform =
+          `translate3d(${tx}px, ${ty - scroll}px, 0)`;
       });
 
-      // ---------- particles (tsParticles) ----------
-      // small, decorative particles in Yoruba palette
-      function initParticles(){
-        if(!window.tsParticles) return;
-        tsParticles.load("tsparticles", {
-          fpsLimit: 45,
-          detectRetina: true,
-          background: { color: "transparent" },
-          particles: {
-            number: { value: 32, density: { enable: true, area: 800 } },
-            color: { value: ["#ff6600","#ffd24d","#00e6c6"] },
-            shape: { type: "circle" },
-            opacity: { value: 0.75, random: { enable:true, minimumValue: 0.25 } },
-            size: { value: 5, random: { enable:true, minimumValue: 1 } },
-            move: { enable: true, speed: 0.6, direction: "none", outModes: { default: "out" } },
-            links: { enable: true, distance: 160, color: "#ffffff07", opacity: 0.05, width: 1 }
-          },
-          interactivity: {
-            detectsOn: "canvas",
-            events: { onHover: { enable: false }, onClick: { enable:false } }
-          }
-        }).catch(err=>{ /* ignore */ });
+      requestAnimationFrame(updateCamera);
+    }
+    updateCamera();
+
+    /* ════════════════════════════════════════════
+       STAR CANVAS
+    ════════════════════════════════════════════ */
+    const canvas = document.getElementById('star-canvas');
+    if (canvas) {
+      canvas.style.position = 'absolute';
+      canvas.style.inset    = '0';
+      canvas.style.pointerEvents = 'none';
+
+      function resizeCanvas() {
+        canvas.width  = window.innerWidth  * 1.2;
+        canvas.height = window.innerHeight * 1.2;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const ctx = canvas.getContext('2d');
+      const STARS = [];
+      for (let i = 0; i < 180; i++) {
+        STARS.push({
+          x:    Math.random(),
+          y:    Math.random(),
+          r:    Math.random() * 1.4 + 0.3,
+          a:    Math.random(),
+          spd:  Math.random() * 0.003 + 0.001,
+          phase: Math.random() * Math.PI * 2,
+        });
       }
 
-      // ---------- subscription/contact handling ----------
-      function handleForm(formEl, successEl){
-        if(!formEl) return;
-        formEl.addEventListener('submit', function(e){
+      function drawStars(ts) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        STARS.forEach(s => {
+          const flicker = 0.5 + 0.5 * Math.sin(ts * 0.001 * s.spd * 1000 + s.phase);
+          ctx.beginPath();
+          ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,240,200,${s.a * flicker})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(drawStars);
+      }
+      requestAnimationFrame(drawStars);
+    }
+
+    /* ════════════════════════════════════════════
+       FLOATING CIRCUIT ELEMENTS
+    ════════════════════════════════════════════ */
+    const circuitContainer = document.getElementById('circuit-container');
+    if (circuitContainer) {
+      const circuitData = [
+        { top:'12%', left:'5%',  w:'80px',  h:'40px',  delay:'0s'   },
+        { top:'30%', left:'88%', w:'60px',  h:'30px',  delay:'1.2s' },
+        { top:'55%', left:'3%',  w:'100px', h:'20px',  delay:'2.4s' },
+        { top:'70%', left:'80%', w:'70px',  h:'50px',  delay:'0.8s' },
+        { top:'20%', left:'45%', w:'50px',  h:'50px',  delay:'3s'   },
+        { top:'80%', left:'25%', w:'90px',  h:'30px',  delay:'1.8s' },
+      ];
+      circuitData.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'circuit-el';
+        el.style.top    = d.top;
+        el.style.left   = d.left;
+        el.style.width  = d.w;
+        el.style.height = d.h;
+        el.style.animationDelay = d.delay;
+        circuitContainer.appendChild(el);
+      });
+    }
+
+    /* ════════════════════════════════════════════
+       FLOATING PARTICLES
+    ════════════════════════════════════════════ */
+    const pContainer = document.getElementById('particle-container');
+    if (pContainer) {
+      const colors = ['#ff5e00','#ffc840','#00ffe7','#6b42ff','#ff3d00'];
+      for (let i = 0; i < 28; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        p.style.cssText = `
+          width:${size}px;height:${size}px;
+          left:${Math.random()*100}%;
+          background:${colors[Math.floor(Math.random()*colors.length)]};
+          opacity:${Math.random()*0.6+0.2};
+          animation-duration:${Math.random()*20+15}s;
+          animation-delay:-${Math.random()*20}s;
+        `;
+        pContainer.appendChild(p);
+      }
+    }
+
+    /* ════════════════════════════════════════════
+       TICKER
+    ════════════════════════════════════════════ */
+    const tickerEl = document.getElementById('ticker');
+    if (tickerEl) {
+      const items = [
+        'Kóòdù Yoruba','Arduino in Yoruba','Learn Hardware Free',
+        'AdeYorubaDuino Library','Ẹ̀kọ́ Ìmọ̀','Subscribe Now',
+        'Free Download','Join the Community','Yoruba Tech',
+      ];
+      const doubled = [...items, ...items];
+      tickerEl.innerHTML = doubled.map(t =>
+        `<span class="ticker-item"><span class="dot">✦</span>${t}</span>`
+      ).join('');
+    }
+
+    /* ════════════════════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════════════════════ */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    /* ════════════════════════════════════════════
+       NAVBAR SCROLL STATE
+    ════════════════════════════════════════════ */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* ════════════════════════════════════════════
+       SMOOTH ANCHOR SCROLL
+    ════════════════════════════════════════════ */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
           e.preventDefault();
-          const fd = new FormData(formEl);
-          const action = formEl.action;
-          // Try to post; on failure show fallback local success (so UX doesn't die)
-          fetch(action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
-            .then(res => {
-              if(res.ok){ showSuccess(successEl); formEl.reset(); }
-              else { showSuccess(successEl); formEl.reset(); } // show anyway for better UX
-            })
-            .catch(err => { showSuccess(successEl); formEl.reset(); });
-        });
-      }
-      function showSuccess(el){
-        if(!el) return;
-        el.style.display = 'block';
-        setTimeout(()=> el.style.display = 'none', 4500);
-      }
-
-      handleForm(qs('#subscribeForm'), qs('#subscribeSuccess'));
-      handleForm(qs('#contactForm'), qs('#contactSuccess'));
-
-      // ---------- smooth scrolling for internal anchors ----------
-      document.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          const href = a.getAttribute('href');
-          if(href.length>1 && document.querySelector(href)){
-            e.preventDefault();
-            document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
-          }
-        });
-      });
-
-      // ---------- GSAP animations ----------
-      function initAnimations(){
-        if(window.gsap && window.ScrollTrigger){
-          gsap.registerPlugin(ScrollTrigger);
-
-          // hero entrance
-          gsap.from('.hero-content h2', {opacity:0, y:18, duration:1, ease: "power3.out"});
-          gsap.from('.hero-content p', {opacity:0, y:12, delay:.12, duration:.9, ease: "power3.out"});
-          gsap.from('.hero-cta .btn', {opacity:0, y:8, delay:.22, duration:.9, stagger:.08, ease: "power3.out"});
-
-          // animate cards as they come into view
-          qsa('[data-animate]').forEach((el, i)=>{
-            gsap.from(el, {
-              scrollTrigger: {
-                trigger: el,
-                start: "top 85%",
-              },
-              opacity: 0,
-              y: 28,
-              duration: 0.9,
-              delay: i * 0.04,
-              ease: "power3.out"
-            });
-          });
-
-          // subtle header shrink on scroll
-          gsap.to('.header-inner', {
-            scrollTrigger: {
-              start: 'top top',
-              end: 99999,
-              scrub: .3
-            },
-            padding: '0.6rem 1rem',
-            ease: 'none'
-          });
-
-          // pause video when out of viewport to save CPU
-          ScrollTrigger.create({
-            start: 0,
-            end: 'bottom bottom',
-            onEnter: ()=> { tryPlayBg(); },
-            onLeaveBack: ()=> { tryPlayBg(); }
-          });
-        } else {
-          // fallback with IntersectionObserver if GSAP missing
-          const obs = new IntersectionObserver((items)=>{
-            items.forEach(i=>{
-              if(i.isIntersecting) i.target.style.opacity = 1;
-              else i.target.style.opacity = 0.5;
-            });
-          }, { threshold: 0.2 });
-          qsa('[data-animate]').forEach(el=>{ el.style.transition = 'opacity .8s, transform .8s'; obs.observe(el); });
+          target.scrollIntoView({ behavior:'smooth', block:'start' });
         }
-      }
-
-      // ---------- BG video play / pause control ----------
-      const bgVideo = qs('#bgVideo');
-      function tryPlayBg(){
-        if(!bgVideo) return;
-        const rect = bgVideo.getBoundingClientRect ? bgVideo.getBoundingClientRect() : {top:0,bottom:0};
-        const inView = rect.bottom > 0 && rect.top < (window.innerHeight || document.documentElement.clientHeight);
-        if(inView){
-          const p = bgVideo.play();
-          if(p && p.catch) p.catch(()=> { /* autoplay blocked */ });
-        } else {
-          // keep muted but pause if not visible
-          try { bgVideo.pause(); } catch(e){}
-        }
-      }
-
-      // ---------- Make iframes lazy by unloading offscreen ones (simple) ----------
-      // (We already used loading="lazy" for modern browsers.)
-
-      // ---------- Initialize all visuals after load ----------
-      function initAll(){
-        initParticles();
-        initAnimations();
-        tryPlayBg();
-      }
-
-      // run after DOM loaded & resources ready
-      if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(initAll, 350);
-      } else {
-        window.addEventListener('DOMContentLoaded', ()=> setTimeout(initAll, 350));
-      }
-
-      // Re-run play check on visibility change
-      document.addEventListener('visibilitychange', ()=> {
-        if(!document.hidden) tryPlayBg();
       });
+    });
 
-      // helpful: pause background video on mobile data if user has 'save-data' preference
-      try {
-        const supportsSaveData = ('connection' in navigator) && navigator.connection.saveData;
-        if(supportsSaveData && navigator.connection.saveData) {
-          if(bgVideo) bgVideo.removeAttribute('autoplay');
-          // show a still poster automatically
-        }
-      } catch(e){}
-
-      // ---------- Accessibility: keyboard focus outline improvements ----------
-      document.body.addEventListener('keyup', (e)=>{
-        if(e.key === "Tab") document.documentElement.style.scrollBehavior = 'smooth';
+    /* ════════════════════════════════════════════
+       FORMS
+    ════════════════════════════════════════════ */
+    function handleForm(formId, successId) {
+      const form    = document.getElementById(formId);
+      const success = document.getElementById(successId);
+      if (!form) return;
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(() => { success.style.display = 'block'; form.reset(); setTimeout(()=> success.style.display='none', 5000); })
+        .catch(() => { success.style.display = 'block'; form.reset(); setTimeout(()=> success.style.display='none', 5000); });
       });
+    }
+    handleForm('subscribeForm','subscribeSuccess');
+    handleForm('contactForm','contactSuccess');
 
-    })();
-  </script>
+    /* ════════════════════════════════════════════
+       LANGUAGE TOGGLE
+    ════════════════════════════════════════════ */
+    const langBtn = document.getElementById('toggle-lang');
+    const translations = {
+      en: {
+        subtitle:    'Learn hardware in Yoruba',
+        heroTitle:   null, // keep HTML
+        heroSub:     'Program Arduino and hardware systems in the Yoruba language. Bridging African heritage with cutting-edge technology.',
+        ctaWatch:    '▶ Watch Tutorials',
+        ctaDownload: '↓ Download Library',
+      },
+      yr: {
+        subtitle:    'Kọ́ ẹ̀kọ́ ìṣàkóso hardware ní Yorùbá',
+        heroSub:     'Kọ́ Arduino àti hardware ní Yorùbá. Àsopọ̀ àṣà Yorùbá pẹ̀lú imọ̀-ẹ̀rọ òde-òní.',
+        ctaWatch:    '▶ Wo Ẹ̀kọ́',
+        ctaDownload: '↓ Gba Láilìbrárì',
+      }
+    };
+    let lang = localStorage.getItem('kyLang') || 'en';
+    function applyLang() {
+      const t = translations[lang];
+      const st = document.getElementById('site-subtitle');
+      if (st) st.textContent = t.subtitle || translations.en.subtitle;
+      const hs = document.getElementById('hero-sub');
+      if (hs) hs.textContent = t.heroSub;
+      const cw = document.getElementById('cta-watch');
+      if (cw) cw.textContent = t.ctaWatch;
+      const cd = document.getElementById('cta-download');
+      if (cd) cd.textContent = t.ctaDownload;
+      langBtn.textContent = lang === 'en' ? 'EN/YR' : 'YR/EN';
+      localStorage.setItem('kyLang', lang);
+    }
+    applyLang();
+    langBtn.addEventListener('click', () => {
+      lang = lang === 'en' ? 'yr' : 'en';
+      applyLang();
+    });
 
-  <!-- Initialize lucide icons (ensures icons render) -->
-  <script>
-    // wait for lucide to be available as module loaded earlier
-    (function(){ const ready = () => { if(window.lucide) lucide.replace(); else setTimeout(ready,200); }; ready(); })();
+    /* ════════════════════════════════════════════
+       HIDE CURSOR ON MOBILE
+    ════════════════════════════════════════════ */
+    if ('ontouchstart' in window) {
+      document.body.style.cursor = 'auto';
+      if (ring) ring.style.display = 'none';
+      if (dot)  dot.style.display  = 'none';
+    }
+
+  })();
   </script>
 
 </body>
