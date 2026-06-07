@@ -1,0 +1,8 @@
+// ODU REMOTE WEB MODULE
+pejade(">>> [IKASILE LATI INU CLOUD: koodu-yoruba.netlify.app] <<<");
+
+iye ODU_VERSION = 1.0;
+
+ise seIdaji(nomba) {
+  pada nomba / 2;
+}
